@@ -1,0 +1,27 @@
+{
+  "name": "dna",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "sequence": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "dnacategory": {
+      "type": "belongsTo",
+      "model": "dnacategory",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

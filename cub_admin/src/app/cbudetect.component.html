@@ -1,0 +1,19 @@
+<h1>DNA Sequence</h1>
+<form>
+    <div class="form-group">
+        <textarea ng-model="dna_seq_area" ngMinlength=12>
+                test  text area
+        </textarea>
+    </div>
+    <div class="form-group">
+        <button (click)="submit_dna_form()">
+            Submit
+        </button>   
+    </div>
+</form>
+<div ng-controller="ButtonsCntrl">
+    <button type="button" class="btn btn-primary" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+        Single Toggle
+    </button>
+    <pre>{{singleModel}}</pre>
+</div>
