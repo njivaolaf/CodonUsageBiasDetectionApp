@@ -1,0 +1,21 @@
+@import '../../../theme/sass/conf/conf';
+@import '../../../theme/sass/fontAwesome';
+
+.modal-buttons .btn {
+  margin-right: 20px;
+}
+
+.modal-content {
+  color: $dropdown-text;
+}
+
+.icons-list>div {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.icons-list i {
+    font-weight: 400;
+    font-size: 18px;
+    cursor: pointer;
+}

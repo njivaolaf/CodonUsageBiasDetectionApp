@@ -14,11 +14,11 @@
     ]
   },
   "dna": {
-    "dataSource": "db",
+    "dataSource": "pgsqlDS",
     "public": true
   },
   "dnacategory": {
-    "dataSource": "db",
+    "dataSource": "pgsqlDS",
     "public": true
   }
 }

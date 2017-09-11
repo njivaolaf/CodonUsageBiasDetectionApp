@@ -1,0 +1,17 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h4 class="modal-title">Icon Picker</h4>
+        <button class="close" aria-label="Close" (click)="discardAndCloseModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="card-body">
+            <div class="row icons-list success awesomeIcons">
+                <div class="col-2" *ngFor="let icon of fontAwesomeIcons">
+                    <i class="fa {{ icon }}" (click)="saveAndCloseModal(icon)"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

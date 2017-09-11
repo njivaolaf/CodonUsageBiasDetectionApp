@@ -1,0 +1,168 @@
+{
+  "login": {
+    "title": "Codon Usage Bias Detection",
+    "email": "Email",
+    "password": "Password",
+    "sign_in": "Sign in",
+    "forget_password": "Forget password?"
+  },
+  "user": {
+    "user": "Users",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "active": "Active",
+    "locked": "Locked",
+    "user_created":"The user has been successfully created.",
+    "email_exist":"The email already exists",
+    
+    "email_not_editable":"The email cannot be edited",
+    "first_name_required":"First name is required",
+    "last_name_required":"Last name is required",
+    "email_required":"Email is required",
+    "invalid_email":"Email is invalid",
+    "account_not_created":"The account has not been created",
+    "user_saved":"The user has been saved"
+  },
+  "general": {
+    "agileum": "Agileum Ltd.",
+    "home": "Home",
+    "menu": {
+      "mainpage":"Main Page",
+      "dashboard": "Dashboard",
+      "category": "Project Category",
+      "report": "Report",
+      "status": "Status",
+      "user": "User",
+      "project": "Project",
+      "comment": "Comment",
+      "like": "Like",
+      "gpssensor": "GPS Sensor",
+      "region": "Region",
+      "measurementstandard": "Measurement standard",
+      "aqi":"Air Quality Index",
+      "road":"Road",
+      "rawdata":"Raw Data"
+    },
+    "header": {
+      "CHANGE_LANGUAGE": "Change language",
+      "ENGLISH": "English",
+      "FRENCH": "French",
+      "CBU": "Codon Usage Bias Detection",
+      "ADMIN": "Rights",
+      "SIGN_OUT": "Sign out"
+    },
+    "common": {
+      "actions": "Actions",
+      "No_data_found": "No data found",
+      "name": "Name",
+      "color": "Color",
+      "icon": "Icon",
+      "confirm_save": "Are you sure you want to save?",
+      "confirm_delete": "Are you sure you want to delete?",
+      "error": "Error",
+      "Error": "Error",
+      "name_required": "Name is required",
+      "name_exist": "Name already exist",
+      "color_required": "Color is required",
+      "icon_required": "Icon is required",
+      "status": "Status",
+      "category_created": "Category created successfully",
+      "category_saved": "Category updated successfully",
+      "category_deleted": "Category deleted successfully",
+      "gpssensor_created": "Gps Sensor created successfully",
+      "gpssensor_saved": "Gps Sensor updated successfully",
+      "gpssensor_deleted": "Gps Sensor deleted successfully",
+      "coordinates": "Coordinates",
+      "region": "Region",
+      "region_name": "Region name",
+      "region_created": "Region created successfully",
+      "region_saved": "Region updated successfully",
+      "region_deleted": "Region deleted successfully",
+      "status_created": "Status created successfully",
+      "status_saved": "Status updated successfully",
+      "status_deleted": "Status deleted successfully",
+      "report_saved": "Report updated successfully",
+      "report_deleted": "Report deleted successfully",
+      "project_created": "Project created successfully",
+      "project_saved": "Project updated successfully",
+      "project_deleted": "Project deleted successfully",
+      "measurementstandard_created": "Measurement standard created successfully ",
+      "measurementstandard_saved": "Measurement standard updated successfully",
+      "measurementstandard_deleted": "Measurement standard deleted successfully",
+      "measurementstandard": "Measurement standard",
+      "measurementstandard_name": "Measurement standard",
+      "parameter": "Parameters",
+      "OneHourAvMaxLimit": "One hour average max limit(μg/m3) ",
+      "DailyAvMaxLimit": "Daily average max limit(μg/m3) ",
+      "aqi":"AQI",
+      "aqi_created":"AQI created successfully",
+      "aqi_saved": "AQI updated successfully",
+      "aqi_deleted": "AQI deleted successfully",
+      "minRange":"Minimum Range",
+      "maxRange":"Maximum Range",
+      "minshouldbegreater":"Minimum Range should not be greater than Maximum Range",
+      "road":"Road",
+      "road_name": "Road name",
+      "road_created": "Road created successfully",
+      "road_saved": "Road updated successfully",
+      "road_deleted": "Road deleted successfully",
+      "rawdata_created": "Raw data created successfully",
+      "rawdata_saved": "Raw data updated successfully",
+      "rawdata_deleted": "Raw data deleted successfully",
+     "rawdata":"Raw data",
+
+      "picture": "Picture",
+      "category": "Category",
+      "description": "Description",
+      "date": "Date",
+      "location": "Location",
+      "uploads": "Uploads",
+      "comment": "Comment",
+      "like": "Like",
+      "like_count": "Number of Likes",
+      "like_deleted": "Like deleted successfully",
+      "This category has been used, cannot delete.": "This category has been used, cannot delete.",
+      "Cannot delete several categories at the same time.": "Cannot delete several categories at the same time.",
+      "This status has been used, cannot delete.": "This status has been used, cannot delete.",
+      "Cannot delete several statuses at the same time.": "Cannot delete several statuses at the same time.",
+      "The report has been soft deleted.": "The report has been soft deleted.",
+      "Cannot delete several reports at the same time.": "Cannot delete several reports at the same time."
+    }
+  },
+  "category": {
+    "title": "Categories"
+  },
+  "report": {
+    "title": "Reports",
+    "export_csv": "Export CSV",
+    "export_pdf": "Export PDF"
+  },
+  "status": {
+    "title": "Statuses"
+  },
+  "project": {
+    "title": "Project"
+  },
+  "gpssensor": {
+    "title": "Gps Sensor"
+  },
+  "region": {
+    "title": "Region"
+  },
+  "measurementstandard": {
+    "title": "Measurement Standard"
+  },
+  "aqi":{
+    "title":"AQI"
+  },
+  
+  "road":{
+    "title":"Road"
+  },
+  "rawdata":{
+    "title":"Raw Data",
+    "export_pdf":"Export to PDF",
+    "export_csv":"Export to CSV",
+    "import_excel":"Import from excel"
+  }
+}

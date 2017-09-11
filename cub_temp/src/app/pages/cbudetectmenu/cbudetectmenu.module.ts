@@ -7,8 +7,8 @@ import { NgaModule } from '../../theme/nga.module';
 import { CbuDetectComp } from './cbudetectmenu.component';
 import { routing } from './cbudetectmenu.routing';
 
-import { PieChart } from './pieChart';
-import { PieChartService } from './pieChart/pieChart.service';
+// import { PieChart } from './pieChart';
+// import { PieChartService } from './pieChart/pieChart.service';
 
 @NgModule({
   imports: [
@@ -19,7 +19,7 @@ import { PieChartService } from './pieChart/pieChart.service';
     routing,
   ],
   declarations: [
-    PieChart,
+  //  PieChart,
     CbuDetectComp,
   ],
   providers: [

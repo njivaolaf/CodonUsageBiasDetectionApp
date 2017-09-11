@@ -1,0 +1,8 @@
+<div baCardBlur class="animated fadeIn card {{cardType}} {{baCardClass || ''}}" zoom-in style="background-color:white;">
+    <div *ngIf="title" class="card-header clearfix" style="border-color: #163174;">
+        <h3 class="card-title" translate>{{title}}</h3>
+    </div>
+    <div class="card-body" style="overflow-y: visible;">
+        <ng-content></ng-content>
+    </div>
+</div>

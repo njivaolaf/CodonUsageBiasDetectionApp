@@ -1,0 +1,9 @@
+@import '../../../theme/sass/conf/conf';
+@import '../../../theme/sass/fontAwesome';
+
+:host {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 30px;
+}

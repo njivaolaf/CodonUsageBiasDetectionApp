@@ -1,0 +1,28 @@
+@import "../../../theme/sass/conf/conf";
+
+.modal-buttons .btn {
+  margin-right: 20px;
+}
+
+.modal-content {
+  color: $dropdown-text;
+}
+
+.album {
+    /*min-height: 50rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;*/
+    background-color: #f7f7f7;
+}
+
+.card {
+    float: left;
+    width: 33.333%;
+    padding: .75rem;
+    margin-bottom: 2rem;
+    border: 0;
+}
+
+/*.card > img {
+    margin-bottom: .75rem;
+}*/

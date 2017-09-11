@@ -1,0 +1,36 @@
+@import '../../../theme/sass/conf/conf';
+@import '../../../theme/sass/fontAwesome';
+
+:host {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+a {
+    font-size: 17px;
+}
+
+.modal {
+  padding-top: 300px;
+
+  .modal-content {
+    color: $dropdown-text;
+
+    .modal-header {
+      border: none;
+    }
+
+    .modal-footer {
+      border: none;
+    }
+
+    .close {
+      outline: none;
+    }
+  }
+}
+
+.modal-buttons .btn {
+  margin-right: 20px;
+}

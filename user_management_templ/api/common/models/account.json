@@ -1,0 +1,69 @@
+{
+  "name": "Account",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "hidden": [
+    "badPasswordCount",
+    "lastBadPasswordAttempt"
+  ],
+  "properties": {
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "locked": {
+      "type": "boolean",
+      "default": false
+    },
+    "badPasswordCount": {
+      "type": "number",
+      "default": 0
+    },
+    "lastBadPasswordAttempt": {
+      "type": "date"
+    },
+    "changePasswordRequired": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": [
+        "create",
+        "resetAccountPassword"
+      ]
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW",
+      "property": [
+        "find",
+        "create",
+        "patchAttributes"
+      ]
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "ALLOW",
+      "property": "resetAccountPassword"
+    }
+  ],
+  "methods": {}
+}
