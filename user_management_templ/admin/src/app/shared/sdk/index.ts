@@ -48,6 +48,8 @@ import { AccountApi } from './services/custom/Account';
 import { EmailApi } from './services/custom/Email';
 import { ContainerApi } from './services/custom/Container';
 import { MediaApi } from './services/custom/Media';
+import { DnaApi } from './services/custom/Dna';
+import { SequencepartApi } from './services/custom/Sequencepart';
 /**
 * @module SDKBrowserModule
 * @description
@@ -81,6 +83,8 @@ export class SDKBrowserModule {
         EmailApi,
         ContainerApi,
         MediaApi,
+        DnaApi,
+        SequencepartApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser }
       ]

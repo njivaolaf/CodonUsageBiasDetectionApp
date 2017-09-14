@@ -1,0 +1,12 @@
+<div class="widgets">
+  <div class="row">
+    <ba-card title="{{ 'general.menu.dna' | translate }}" baCardClass="with-scroll" class="smart-table-container">
+      <ng2-smart-table [settings]="settings"
+        [source]="source"
+        (editConfirm)="onSaveConfirm($event)"
+        (createConfirm)="onCreateConfirm($event)">
+      </ng2-smart-table>
+    </ba-card>
+  </div>
+</div>
+<simple-notifications [options]="options"></simple-notifications>

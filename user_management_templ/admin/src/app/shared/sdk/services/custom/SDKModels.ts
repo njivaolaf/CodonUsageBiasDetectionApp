@@ -4,6 +4,8 @@ import { Account } from '../../models/Account';
 import { Email } from '../../models/Email';
 import { Container } from '../../models/Container';
 import { Media } from '../../models/Media';
+import { Dna } from '../../models/Dna';
+import { Sequencepart } from '../../models/Sequencepart';
 
 export interface Models { [name: string]: any }
 
@@ -15,6 +17,8 @@ export class SDKModels {
     Email: Email,
     Container: Container,
     Media: Media,
+    Dna: Dna,
+    Sequencepart: Sequencepart,
     
   };
 

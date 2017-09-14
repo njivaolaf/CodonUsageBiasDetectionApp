@@ -1,10 +1,11 @@
 {
   "login": {
-    "title": "Codon Usage Bias Detection",
+    "title": "Codon Bias Usage Detection",
     "email": "Email",
     "password": "Password",
     "sign_in": "Sign in",
-    "forget_password": "Forget password?"
+    "forget_password": "Forget password?",
+    "back":"Continue as Guest"
   },
   "user": {
     "user": "Users",
@@ -14,7 +15,8 @@
     "locked": "Locked",
     "user_created":"The user has been successfully created.",
     "email_exist":"The email already exists",
-    
+    "login":"Login",
+    "register":"Register",
     "email_not_editable":"The email cannot be edited",
     "first_name_required":"First name is required",
     "last_name_required":"Last name is required",
@@ -24,7 +26,7 @@
     "user_saved":"The user has been saved"
   },
   "general": {
-    "agileum": "Agileum Ltd.",
+    "utm": "University of Technology,Mauritius ",
     "home": "Home",
     "menu": {
       "mainpage":"Main Page",
@@ -41,13 +43,15 @@
       "measurementstandard": "Measurement standard",
       "aqi":"Air Quality Index",
       "road":"Road",
-      "rawdata":"Raw Data"
+      "rawdata":"Raw Data",
+      "cub":"CUB Detection",
+      "dna":"DNA"
     },
     "header": {
       "CHANGE_LANGUAGE": "Change language",
       "ENGLISH": "English",
       "FRENCH": "French",
-      "CBU": "Codon Usage Bias Detection",
+      "CUB": "Codon Bias Usage Detection",
       "ADMIN": "Rights",
       "SIGN_OUT": "Sign out"
     },
@@ -63,6 +67,9 @@
       "Error": "Error",
       "name_required": "Name is required",
       "name_exist": "Name already exist",
+      "sequencename":"Sequence name",
+      "sequencename_required": "Name is required",
+      "sequencename_exist": "Name already exist",
       "color_required": "Color is required",
       "icon_required": "Icon is required",
       "status": "Status",

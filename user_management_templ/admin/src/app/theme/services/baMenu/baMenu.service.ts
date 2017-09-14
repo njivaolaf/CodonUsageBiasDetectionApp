@@ -2,12 +2,14 @@ import {Injectable} from '@angular/core';
 import {Router, Routes} from '@angular/router';
 import * as _ from 'lodash';
 
+// import { CubDetectionComponent } from '../../../pages/cub-detection/cub-detection.component';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class BaMenuService {
   menuItems = new BehaviorSubject<any[]>([]);
-
+  
+ // cub_detect_route_guest: Routes;
   protected _currentMenuItem = {};
 
   constructor(private _router:Router) { }
@@ -18,6 +20,14 @@ export class BaMenuService {
    * @param {Routes} routes Type compatible with app.menu.ts
    */
   public updateMenuByRoutes(routes: Routes) {
+
+//     this.cub_detect_route_guest = [
+//   {
+//     path: 'cub-detection',
+//     component: CubDetectionComponent,
+//   },
+// ];
+ // routes.push(this.cub_detect_route_guest);
     let convertedRoutes = this.convertRoutesToMenus(_.cloneDeep(routes));
     this.menuItems.next(convertedRoutes);
   }

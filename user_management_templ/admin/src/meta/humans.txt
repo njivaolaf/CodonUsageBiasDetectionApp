@@ -3,12 +3,13 @@
 
 # TEAM
 
-  agileum.com
+ utm
 
 # THANKS
 
   <name>
-  Agileum Team
+  Olaf Ranaivoson
+  Ajit Gopee
 
 # TECHNOLOGY COLOPHON
 

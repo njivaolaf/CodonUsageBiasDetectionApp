@@ -54,6 +54,10 @@ export class AuthService {
     this.currentUser = user;
   }
 
+  force_clearUser(): void{
+    this.currentUser = undefined;
+  }
+
   getUser(): User {
     return this.currentUser;
   }

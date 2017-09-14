@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DefaultEditor } from 'ng2-smart-table';
 
 @Component({
-    selector: 'cbu-dropdown-gender-editor',
+    selector: 'cub-dropdown-gender-editor',
     template: `
     <select [ngClass]="inputClass"
             class="form-control"

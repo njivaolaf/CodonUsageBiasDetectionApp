@@ -53,5 +53,13 @@
   "Media": {
     "dataSource": "pgsqlDS",
     "public": true
+  },
+  "dna": {
+    "dataSource": "pgsqlDS",
+    "public": true
+  },
+  "sequencepart": {
+    "dataSource": "pgsqlDS",
+    "public": true
   }
 }

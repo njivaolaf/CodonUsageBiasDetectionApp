@@ -1,10 +1,11 @@
 {
   "login": {
-    "title": "Codon Usage Bias Detection",
+    "title": "Codon Bias Usage Detection",
     "email": "Email",
     "password": "Mot de passe",
-    "sign_in": "Se connecter",
-    "forget_password": "Mot de passe oublié ?"
+    "sign_in": "Connexion",
+    "forget_password": "Mot de passe oublié?",
+    "back":"Continuer en tant que visiteur"
   },
   "user": {
     "user": "Utilisateurs",
@@ -12,6 +13,8 @@
     "last_name": "Nom",
     "active": "Actif",
     "locked": "Bloqué",
+    "login":"Connexion",
+    "register":"S'enregistrer",
     "user_created":"Utilisateur créé",
     "email_exist":"l'adresse email existe déja",
     "email_not_editable":"L'adresse email ne peut etre édité",
@@ -23,9 +26,10 @@
     "user_saved":"L'utilisateur a été sauvegardé"
   },
   "general": {
-    "agileum": "Agileum Ltd.",
+    "utm": "University of Technology,Mauritius",
     "home": "Accueil",
     "menu": {
+      "dna":"ADN",
       "mainpage":"Main Page",
       "dashboard": "Tableau de bord",
       "category": "Catégorie de projet",
@@ -40,13 +44,14 @@
       "measurementstandard":"Norme de mesure",
       "aqi":"Indice de Qualité de l'Air",
       "road":"Route",
-      "rawdata":"Données brutes"
+      "rawdata":"Données brutes",
+      "cub":"Détection de biais d'usage du code"
     },
     "header": {
       "CHANGE_LANGUAGE": "Changer la langue",
       "ENGLISH": "Anglais",
       "FRENCH": "Français",
-      "CBU": "Codon Usage Bias Detection",
+      "CUB": "Codon Bias Usage Detection",
       "ADMIN": "Rights",
       "SIGN_OUT": "Se déconnecter"
     },

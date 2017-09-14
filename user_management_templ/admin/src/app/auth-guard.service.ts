@@ -23,7 +23,8 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     if (typeof isLoggedIn === 'boolean') {
       if (!isLoggedIn) {
         this.authService.redirectUrl = url;
-        this.router.navigate(['/login']);
+       // this.router.navigate(['/login']);
+       // this.router.navigate(['../cub-detection']);
       }
       if (isLoggedIn) {
         const user = this.authService.getUser();

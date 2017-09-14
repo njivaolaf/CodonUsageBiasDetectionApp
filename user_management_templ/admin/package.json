@@ -1,8 +1,8 @@
 {
-  "name": "cbu-detection",
+  "name": "cub-detection",
   "version": "0.9.0",
-  "description": "cbu-detection",
-  "author": "Agileum Team",
+  "description": "cub-detection",
+  "author": "Olaf Ranaivoson",
   "license": "UNLICENSED",
   "scripts": {
     "ng": "ng",

@@ -32,7 +32,7 @@ import {
     // LocationZonePickerModalComponent,
 } from './components';
 
-const CBU_COMPONENTS = [
+const Cub_COMPONENTS = [
     ColorEditorComponent,
     ColorRenderComponent,
     LocationRenderComponent,
@@ -55,13 +55,13 @@ const CBU_COMPONENTS = [
     // LocationZonePickerModalComponent,
 ];
 
-const CBU_PROVIDERS = [
+const Cub_PROVIDERS = [
     NotificationsService,
 ];
 
 @NgModule({
     declarations: [
-        ...CBU_COMPONENTS,
+        ...Cub_COMPONENTS,
     ],
     imports: [
         CommonModule,
@@ -76,10 +76,10 @@ const CBU_PROVIDERS = [
         AppTranslationModule,
     ],
     entryComponents: [
-        ...CBU_COMPONENTS,
+        ...Cub_COMPONENTS,
     ],
     providers: [
-        ...CBU_PROVIDERS,
+        ...Cub_PROVIDERS,
     ],
 })
 export class SharedModule {

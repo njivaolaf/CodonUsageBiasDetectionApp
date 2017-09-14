@@ -26,12 +26,21 @@ export const routes: Routes = [
         path: 'mainpage',
         loadChildren: './mainpage/mainpage.module#MainPageModule',
       },
+      {
+        path: 'dna',
+        loadChildren: './dna/dna.module#DnaModule',
+      },
+      
     ],
   },
-
+   { path: '', redirectTo: 'cub-detection', pathMatch: 'full' },
   {
     path: 'change-password',
-    loadChildren: 'app/pages/change-password/change-password.module#ChangePasswordModule'
+    loadChildren: 'app/pages/change-password/change-password.module#ChangePasswordModule',
+  },
+  {
+    path: 'cub-detection',
+    loadChildren: 'app/pages/cub-detection/cub-detection.module#CubDetectionModule',
   },
 ];
 

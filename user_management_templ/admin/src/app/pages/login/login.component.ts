@@ -84,6 +84,9 @@ export class Login {
     }
   }
 
+  ReturnNow() {
+    this.router.navigate(['/cub-detection']);
+  }
   onForgetPassword() {
     if (window.confirm('Are you sure you want to reset your password')) {
       this.email = this.form.controls['email'];

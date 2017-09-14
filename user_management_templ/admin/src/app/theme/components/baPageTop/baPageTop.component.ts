@@ -25,12 +25,25 @@ export class BaPageTop {
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
       this.isMenuCollapsed = isCollapsed;
     });
-    const user = this.authService.getUser();
-    this.userDetail = user.firstName || user.lastName ?
-      `${(user.firstName + ' ' + user.lastName).trim()} (${user.role.toUpperCase()})` :
-      `${user.username || user.email} (${user.role.toUpperCase()})`;
+   this.recheck_userDetail();
   }
 
+  recheck_userDetail() {
+     const user = this.authService.getUser();
+    if (user !== undefined) {
+          
+      this.userDetail = user.firstName || user.lastName ?
+        `${(user.firstName + ' ' + user.lastName).trim()} (${user.role.toUpperCase()})` :
+        `${user.username || user.email} (${user.role.toUpperCase()})`;
+      } else {
+        this.reset_userDetail();
+      }
+  }
+
+  reset_userDetail() {
+    console.log('detail has been reset');
+    this.userDetail = undefined;
+  }
   toggleMenu() {
     this.isMenuCollapsed = !this.isMenuCollapsed;
     this._state.notifyDataChanged('menu.isCollapsed', this.isMenuCollapsed);
@@ -50,7 +63,11 @@ export class BaPageTop {
   signOut(event: Event) {
     event.preventDefault();
     this.authService.logout().subscribe(
-      () => this.router.navigate(['/login']),
+      () => {
+        this.authService.force_clearUser();
+        this.recheck_userDetail();
+        this.router.navigate(['/login']);
+      },
       err => {
         if (err) {
           if (err.statusCode === 401) {
@@ -59,11 +76,18 @@ export class BaPageTop {
             alert(err.message);
           }
         }
-      }
+      },
     );
   }
 
   onChangePasswordClicked() {
     this.router.navigate(['/change-password']);
+  }
+
+  loginUserClicked() {
+    this.router.navigate(['/login']);
+  }
+  registerUserClicked() {
+    this.router.navigate(['/register']);
   }
 }
