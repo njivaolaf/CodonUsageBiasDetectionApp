@@ -32,9 +32,12 @@ export class Pages implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.updateRoute();
+  }
+  updateRoute() {
     const user = this.authService.getUser();
     const isAdmin = user && user.isAdmin;
-    
+
     if (user === undefined) {
       this._menuService.updateMenuByRoutes(<Routes>GUEST_PAGES_MENU);
     } else if (isAdmin) {

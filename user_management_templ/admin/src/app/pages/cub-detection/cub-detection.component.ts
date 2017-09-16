@@ -3,6 +3,8 @@ import { Router, Routes } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 
+import { Pages } from '../pages.component';
+
 import { ADMIN_PAGES_MENU, PAGES_MENU, GUEST_PAGES_MENU } from '../pages.menu';
 import { BaMenuService } from '../../theme';
 import { AuthService, User } from '../../auth.service';
@@ -14,27 +16,41 @@ import { LoopBackFilter, LoopBackConfig } from '../../shared/sdk';
   selector: 'cub-detection',
   templateUrl: './cub-detection.html',
   styleUrls: ['./cub-detection.scss'],
+  providers: [Pages],
 })
 export class CubDetectionComponent implements OnInit, OnDestroy {
 //  isLoggedIn: Observable<any>;
   constructor( private authService: AuthService,
-    private _menuService: BaMenuService ) {
-      this.checkLoggedUpdateMenu();
+    private _menuService: BaMenuService, private _Page: Pages ) {
+      
+    //   _Page.updateRoute();
   }
-
+ngOnInit(): void {
+this.updateRoute();
+}
   checkLoggedUpdateMenu() {
- console.log('reaccessing cub detection');
     const isLoggedIn = this.authService.isLoggedIn();
     if (typeof isLoggedIn === 'boolean') {
       if (!isLoggedIn) {
         
+      console.log('updated to guest_pages_menu()');
       this._menuService.updateMenuByRoutes(<Routes>GUEST_PAGES_MENU);
       }
     }
   }
 
-  ngOnInit() {
-  
+
+  updateRoute() {
+    const user = this.authService.getUser();
+    const isAdmin = user && user.isAdmin;
+
+    if (user === undefined) {
+      this._menuService.updateMenuByRoutes(<Routes>GUEST_PAGES_MENU);
+    } else if (isAdmin) {
+      this._menuService.updateMenuByRoutes(<Routes>ADMIN_PAGES_MENU);
+    } else {
+      this._menuService.updateMenuByRoutes(<Routes>PAGES_MENU);
+    }
   }
 
   ngOnDestroy() {

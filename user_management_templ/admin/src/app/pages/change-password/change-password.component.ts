@@ -135,7 +135,7 @@ export class ChangePasswordComponent {
         preserveFragment: true
       } as NavigationExtras);
     } else {
-      this.router.navigate(['/pages/mainpage']);
+      this.router.navigate(['mainpage']);
     }
   }
 }

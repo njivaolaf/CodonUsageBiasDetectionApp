@@ -22,18 +22,15 @@ export const routes: Routes = [
         path: 'user',
         loadChildren: './user/user.module#UserModule',
       },
-      {
-        path: 'mainpage',
-        loadChildren: './mainpage/mainpage.module#MainPageModule',
-      },
+
       {
         path: 'dna',
         loadChildren: './dna/dna.module#DnaModule',
       },
-      
+
     ],
   },
-   { path: '', redirectTo: 'cub-detection', pathMatch: 'full' },
+  { path: '', redirectTo: 'mainpage', pathMatch: 'full' },
   {
     path: 'change-password',
     loadChildren: 'app/pages/change-password/change-password.module#ChangePasswordModule',
@@ -41,6 +38,10 @@ export const routes: Routes = [
   {
     path: 'cub-detection',
     loadChildren: 'app/pages/cub-detection/cub-detection.module#CubDetectionModule',
+  },
+  {
+    path: 'mainpage',
+    loadChildren: './mainpage/mainpage.module#MainPageModule',
   },
 ];
 
