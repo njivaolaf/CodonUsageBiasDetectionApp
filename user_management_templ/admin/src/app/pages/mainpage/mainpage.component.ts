@@ -4,38 +4,41 @@ import { NotificationsService } from 'angular2-notifications';
 import { TranslateService } from '@ngx-translate/core';
 import { BaMenuService } from '../../theme';
 import { AuthService, User } from '../../auth.service';
-import { Pages } from '../pages.component';
+// import { Pages } from '../pages.component';
 
 import { Router, Routes } from '@angular/router';
 import { ADMIN_PAGES_MENU, PAGES_MENU, GUEST_PAGES_MENU } from '../pages.menu';
 import {
-    ColorEditorComponent,
-    ColorRenderComponent,
-    IconRenderComponent,
-    IconEditorComponent,
-    NotEditableReportComponent,
-    DropdownEditorComponent,
-    LongTextRenderComponent,
-    NotEditableLongTextComponent, LocationRenderComponent, LocationEditorComponent,
-    TextEditorComponent,
+  ColorEditorComponent,
+  ColorRenderComponent,
+  IconRenderComponent,
+  IconEditorComponent,
+  NotEditableReportComponent,
+  DropdownEditorComponent,
+  LongTextRenderComponent,
+  NotEditableLongTextComponent, LocationRenderComponent, LocationEditorComponent,
+  TextEditorComponent,
 } from '../../shared/components';
 import { CustomValidations } from '../../shared/customValidation/customValidation';
 
 @Component({
-    selector: 'mainpage',
-    templateUrl: './mainpage.component.html',
-    styleUrls: ['./mainpage.component.scss'],
-    providers: [Pages],
+  selector: 'mainpage',
+  templateUrl: './mainpage.component.html',
+  styleUrls: ['./mainpage.component.scss'],
 })
-export class MainPageComponent {
-    constructor(private authService: AuthService,
-        private _menuService: BaMenuService,
-        private _Page: Pages,
-    ) {
-     //   _Page.updateRoute();
-        this.updateRoute();
-    }
-    updateRoute() {
+export class MainPageComponent implements OnInit {
+  constructor(private authService: AuthService,
+    private _menuService: BaMenuService,
+  ) {
+    //   console.log('before updated');
+    //   _Page.updateRoute();
+    // this.updateRoute();
+  }
+  ngOnInit(): void {
+    this.updateRoute();
+  }
+  updateRoute() {
+    console.log('updating now...');
     const user = this.authService.getUser();
     const isAdmin = user && user.isAdmin;
 
