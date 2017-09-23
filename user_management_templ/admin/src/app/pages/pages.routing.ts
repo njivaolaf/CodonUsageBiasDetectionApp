@@ -27,16 +27,21 @@ export const routes: Routes = [
         path: 'dna',
         loadChildren: './dna/dna.module#DnaModule',
       },
-
+      {
+        path: 'dna-editor',
+        loadChildren: './dna-editor/dna-editor.module#DnaEditorModule',
+      },
     ],
   },
-  { path: '', redirectTo: 'cub-detection', pathMatch: 'full' },
+  { path: '', redirectTo: 'mainpage', pathMatch: 'full' },
   {
     path: 'change-password',
     loadChildren: 'app/pages/change-password/change-password.module#ChangePasswordModule',
   },
   {
     path: 'cub-detection',
+    component: Pages,
+    canActivate: [AuthGuard],
     loadChildren: 'app/pages/cub-detection/cub-detection.module#CubDetectionModule',
   },
   {

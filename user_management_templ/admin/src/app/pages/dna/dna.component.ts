@@ -3,6 +3,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { NotificationsService } from 'angular2-notifications';
 import { TranslateService } from '@ngx-translate/core';
 
+import { Router, NavigationExtras } from '@angular/router';
 import { DnaApi } from './../../shared/sdk/services';
 import { Dna } from './../../shared/sdk/models';
 import { ColorEditorComponent, ColorRenderComponent } from './../../shared/components';
@@ -30,7 +31,8 @@ export class DnaComponent implements OnInit {
   constructor(
     protected dnaApi: DnaApi,
     private notificationsService: NotificationsService,
-    private translate: TranslateService
+    private translate: TranslateService, 
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -55,6 +57,7 @@ export class DnaComponent implements OnInit {
         this.trans = trans;
         this.source = new LocalDataSource();
         this.settings = {
+          mode: 'external',
           actions: {
             columnTitle: this.trans['general.common.actions']
           },
@@ -95,7 +98,18 @@ export class DnaComponent implements OnInit {
       err => { if (err && err.message) this.notificationsService.error(err.name, err.message); }
     );
   }
-
+  onAddOrEdit(event) {
+    console.log('clicked on add or edit');
+    let selectedDnaId: number = 0;
+    if (event.data) {
+      selectedDnaId = (event.data as Dna).id;
+    }
+    // Set session data
+    sessionStorage.setItem('id', selectedDnaId.toString());
+    // Redirect toeditor
+    console.log('redirecting');
+    this.router.navigate(['/pages/dna-editor']);
+  }
   onCreateConfirm(event): void {
     const item = event.newData as Dna;
     if (this.validateDna(item)) {
@@ -121,6 +135,7 @@ export class DnaComponent implements OnInit {
   }
 
   onDeleteConfirm(event): void {
+    console.log('clicked on delete');
     if (window.confirm(this.trans['general.common.confirm_delete'])) {
       const item = event.data as Dna;
       this.deleteDna(item);

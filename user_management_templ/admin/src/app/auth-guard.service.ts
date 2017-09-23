@@ -26,7 +26,14 @@ export class AuthGuard implements CanActivate, CanActivateChild, OnInit {
   ngOnInit(): void {
     this.setLinkExceptions();
   }
-
+  setLinkExceptions(): void {
+    //  guest users can navigate to these link 
+    //  Pages to be viewed by GUESTS(not logged users) should be added here
+    this.linkExceptionsforGuest = [
+      '/mainpage',
+      '/cub-detection',
+    ];
+  }
   canActivate(route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
     this.setLinkExceptions();
@@ -85,23 +92,16 @@ export class AuthGuard implements CanActivate, CanActivateChild, OnInit {
     state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
     return this.canActivate(childRoute, state);
   }
-  setLinkExceptions(): void {
-    //  guest users can navigate to these link 
-    //  Pages to be viewed by GUESTS(not logged users) should be added here
-    this.linkExceptionsforGuest = [
-      '/mainpage',
-      '/cubdetection',
-    ];
-  }
+
   checkifLinkExceptions(myUrl: string): boolean {
     const linkExceptions = this.linkExceptionsforGuest;
 
     if (linkExceptions.length === 0) {
       return false;
     } else {
-      let searchDone = false;
-      let foundLink = false;
-      let sCount = 0;
+      let searchDone: boolean = false;
+      let foundLink: boolean = false;
+      let sCount: number = 0;
       while (!searchDone && !foundLink) {
         if (myUrl.localeCompare(linkExceptions[sCount]) === 0) { // return 0 if strs match
           foundLink = true;

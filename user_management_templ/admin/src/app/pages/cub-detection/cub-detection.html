@@ -1,85 +1,45 @@
 <div class="auth-main" *ngIf="!isError">
-  <div class="auth-block" style="height: 99%; width: 90%; background-color: white">
 
+  <form>
 
-    <ba-sidebar></ba-sidebar>
-    <ba-page-top></ba-page-top>
-    <div class="al-main">
-      <div class="al-content">
-        <ba-content-top></ba-content-top>
-        <router-outlet></router-outlet>
-
-        <form>
-
-          <div class="form-group">
-            <h1>DNA Sequences</h1>
-            <textarea placeholder="example: atctccaaaagct..." class="form-control" id="dnaseqInput"></textarea>
-          </div>
-          <div class="form-group">
-            <button (click)="clearClicked()" class="btn">Clear</button>
-            <button (click)="importFromTextClicked()" class="btn">Import from file(.txt)</button>
+    <div class="form-group">
+      <textarea placeholder="example: atctccaaaagct..." class="form-control" id="dnaseqInput"></textarea>
+    </div>
+    <div class="form-group">
+      <button (click)="clearClicked()" class="btn">Clear</button>
+      <button (click)="importFromTextClicked()" class="btn">Import from file(.txt)</button>
 
 
 
-          </div>
-          <div class="form-group">
-            <select class="form-control" id="comboBoxDna">
-              
-              <option>(or choose one of our sequences)</option>
-              <option>Sphagnum palustre</option>
-              <option>Andreaea rupestris</option>
-              <option>Buxbaumia aphylla</option>
+    </div>
+    <div class="form-group">
+      <select *ngIf="existingDnaList" class="form-control" id="comboBoxDna" name="cbBoxDna" [(ngModel)]="selectedDnaSeqID">
+              <option *ngFor="let aDna of existingDnaList; let dnaIndex=index" [ngValue]="aDna.id">{{aDna.sequencename}}</option>
+             
             </select>
-          </div>
-          <div>
-            <h4>Choose your sequence format:</h4>
-          </div>
-          <div class="input-demo radio-demo row">
-            <div class="col-md-4">
-              <label class="radio-inline custom-radio nowrap">
+    </div>
+    <div>
+      test: {{selectedDnaSeqID}}
+    </div>
+    <div>
+      <h4>Choose your sequence format:</h4>
+    </div>
+    <div class="input-demo radio-demo row">
+      <div class="col-md-4">
+        <label class="radio-inline custom-radio nowrap">
               <input type="radio" name="BareRadio" id="fastaRadio" value="fasta">
               <span style ="color:aliceblue">Fasta</span>
             </label>
-            </div>
-            <div class="col-md-4">
-              <label class="radio-inline custom-radio nowrap">
+      </div>
+      <div class="col-md-4">
+        <label class="radio-inline custom-radio nowrap">
                 <input type="radio" name="BareRadio" id="BareRadio" value="bare">
                 <span style ="color:aliceblue">Bare</span>
             </label>
-            </div>
-
-          </div>
-          <div class="form-group">
-            <button (click)="calculateClicked()" class="btn btn-primary">Calculate</button>
-          </div>
-        </form>
-
-
-
       </div>
+
     </div>
-    <footer class="al-footer clearfix">
-      <div class="al-footer-right"><img src="assets/images/userIcon.png" style="height: 12px;"></div>
-      <div class="al-footer-main clearfix">
-        <div class="al-copy" style="color: white;">&copy; <a href="https://www.utm.ac.mu/" style="color: white;" translate>{{'general.utm'}}</a> 2017</div>
-      </div>
-    </footer>
-    <ba-back-top position="200"></ba-back-top>
-
-
-
-
-
-
-  </div>
-</div>
-<div class="auth-main" *ngIf="isError">
-  <div class="auth-block" style="height: auto; width: 90%; background-color: black">
-    <div style="width: 100%; text-align: left; height: auto; ">
-
-      <h3 style="font-style: 10px arial!important; color: #333;">
-        404 PAGE NOT FOUND
-      </h3>
+    <div class="form-group">
+      <button (click)="calculateClicked()" class="btn btn-primary">Calculate</button>
     </div>
-  </div>
-</div>
+  </form>

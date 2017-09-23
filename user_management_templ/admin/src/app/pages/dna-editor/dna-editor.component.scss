@@ -1,0 +1,130 @@
+// Date picker Host css
+:host .input-group {
+    margin: auto;
+    width: 100%;
+    height: 35px;
+    color: black;
+}
+
+:host .form-group {
+    margin: auto;
+    width: 100%;
+}
+
+:host .input-group-addon {
+    background-color: transparent;
+    height: 100%;
+    cursor: pointer;
+    width: 30px;
+    padding: 0;
+    border: none;
+}
+
+:host .input-group-image {
+    margin: 0;
+    height: 100%;
+}
+
+::-webkit-input-placeholder {
+    /* Chrome */
+    color: #163174;
+}
+
+::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #163174;
+    opacity: 1;
+}
+
+ngb-timepicker {
+    color: black !important;
+}
+
+// Normal css
+table.form-table {
+    border: 0px black solid;
+    td {
+        padding-bottom: 5px;
+    }
+    td.tablelabel {
+        vertical-align: top;
+        max-width: 50px;
+        color: #163174;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 12px;
+    }
+    input.text-input {
+        color: #163174;
+        border: 1px solid #163174;
+        border-radius: 2px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-color: #163174;
+        padding-left: 5px;
+        height: 30px;
+    }
+    select.select-style {
+        width: auto;
+        height: auto;
+        float: left;
+    }
+    select.select-style {
+        padding: 5px 8px;
+        width: 100%;
+        border: 1px solid #163174;
+        background: transparent;
+        background-image: none;
+        -webkit-appearance: menulist-button;
+        border-radius: 2px;
+        cursor: pointer;
+        color: #163174;
+    }
+    textarea {
+        color: #163174;
+        border: 1px solid #163174;
+        border-radius: 2px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-color: #163174;
+        padding-left: 10px;
+        min-height: 200px;
+        max-height: 200px;
+        height: auto;
+    }
+    input {
+        color: #163174;
+    }
+    img {
+        height: 100px;
+        width: auto;
+        padding: 2px;
+        margin-bottom: 5px;
+    }
+}
+
+div.buttonContainer {
+    margin-top: 5px;
+    width: 100%;
+    input {
+        padding: 5px 8px;
+        width: auto;
+        min-width: 150px;
+        border: 1px solid #ABB2B9;
+        background: #163174;
+        border-radius: 2px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        font-size: 12px;
+    }
+    input:hover {
+        padding: 5px 8px;
+        border: 1px solid #ABB2B9;
+        background: #163174;
+    }
+}
+
+div {
+    color: black;
+}

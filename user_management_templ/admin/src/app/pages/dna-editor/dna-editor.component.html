@@ -1,0 +1,41 @@
+<div style="width:100%; margin: 0 auto;">
+  <form class="form-inline">
+    <table class="form-table" style="width: 100%;">
+      <tbody *ngIf="currentDna" name="currentDnaTest">
+        <tr>
+          <td class="tablelabel">
+            Title:
+          </td>
+          <td>
+            <h3> {{currentDna.sequencename}} </h3>
+            <!-- <input name="projecttitleinput" [(ngModel)]="currentDna.tradername" class="text-input" type="text" style="width: 100%;" placeholder="Enter news title"
+            /> -->
+            <!-- <textarea   [(ngModel)]="currentDna.description" name="projectName" style="width: 100%;" readonly></textarea>  -->
+
+          </td>
+        </tr>
+        
+<!--      
+        <tr>
+          <td class="tablelabel">
+            Sequence:
+          </td>
+          <td>
+             <textarea [(ngModel)]="currentDna.sequencename" name="dnasequence" style="width: 100%;" ></textarea> 
+          </td>
+        </tr> -->
+      
+      
+      </tbody>
+    </table>
+    <div class="buttonContainer" align="center" *ngIf="saveInProgress === false">
+      <input type="button" value="SAVE" (click)="onSaveClicked()" />
+     
+      <input type="button" value="CANCEL" (click)="onCancelClicked()" />
+    </div>
+    <div align="center" class="buttonContainer" *ngIf="saveInProgress === true">
+      <img src="assets/images/loader.gif" style="height: 35px;"> Saving dna sequence...
+    </div>
+  </form>
+</div>
+<simple-notifications [options]="options"></simple-notifications>

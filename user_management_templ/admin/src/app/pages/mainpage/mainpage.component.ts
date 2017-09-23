@@ -27,6 +27,9 @@ import { CustomValidations } from '../../shared/customValidation/customValidatio
   styleUrls: ['./mainpage.component.scss'],
 })
 export class MainPageComponent implements OnInit {
+  
+  
+  checkboxModel: boolean[] =[];
   constructor(private authService: AuthService,
     private _menuService: BaMenuService,
   ) {
@@ -34,7 +37,11 @@ export class MainPageComponent implements OnInit {
     //   _Page.updateRoute();
     // this.updateRoute();
   }
+  sendnow(){
+    console.log('sending now...')
+  }
   ngOnInit(): void {
+    
     this.updateRoute();
   }
   updateRoute() {
