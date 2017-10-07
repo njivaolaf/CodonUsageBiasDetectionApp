@@ -90,7 +90,18 @@
 
 :host /deep/ {
   ng2-smart-table {
-
+          li:hover {
+      background: #C7D7FF !important;
+      }
+      li.page-item.disabled:hover {
+      background: #8c9099 !important;
+      }
+      li.page-item {
+      background: #c0c1c4 !important;
+      }
+      li.page-item.disabled {
+      background: #8c9099 !important;
+      }
     th, td {
       border: 1px solid #163174 !important;
       color: #163174;

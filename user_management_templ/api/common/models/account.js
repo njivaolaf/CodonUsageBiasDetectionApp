@@ -193,11 +193,11 @@ module.exports = function (Account) {
     Account.on('sendEmail', function (info) {
         app.models.Email.send({
             to: info.to,
-            from: '"Mobile No-Reply" <mobile-noreply@govmu.org>',
-            sender: 'mobile-noreply@govmu.org',
+            from: '"Mobile No-Reply[CUB Detection]" <njivaolaf@gmail.com>',
+            sender: 'njivaolaf@gmail.com',
             subject: info.subject,
             html: info.message
-        }, function (err) {
+        }, function (err) { 
             if (err) return console.log('> error sending email:', err);
             console.log('> sending email to:', info.to);
         });
