@@ -3,7 +3,27 @@
 module.exports = function (Container) {
     var app = require('../../server/server');
     const fs = require('fs');
+
+
+    var streamToString = function (stream, callback) {
+        var str = '';
+        stream.on('data', function (chunk) {
+            str += chunk;
+            //          console.log('one chunk:', chunk);
+        });
+        stream.on('end', function () {
+            callback(str);
+        })
+    }
+
+    Container.getFileName = function(file,req,res){
+        console.log('getting file name');
+        return 'nameworkingTEST';
+    }
     Container.afterRemote('upload', function (ctx, modelInstance, cb) {
+        // if (ctx) {
+        //     console.log('ctx:', ctx)
+        // }
         if (modelInstance) {
 
             var medias = [];
@@ -16,19 +36,11 @@ module.exports = function (Container) {
                     name: file.name,
                     size: file.size,
                 });
-                var streamToString = function (stream, callback) {
-                    var str = '';
-                    stream.on('data', function (chunk) {
-                        str += chunk;
-                        console.log('one chunk:', chunk);
-                    });
-                    stream.on('end', function () {
-                        callback(str);
-                    })
-                }
+
                 var myStream = Container.downloadStream(file.container, file.name);
-                streamToString(myStream,function(mystr){
-                    console.log('FINALLY..:',mystr);
+                streamToString(myStream, function (mystr) {
+                    Container.getFileName();
+                    console.log('MYSTR:', mystr);
                 });
 
                 //   stream.pipe(process.stdout);
@@ -46,7 +58,9 @@ module.exports = function (Container) {
         }
     });
 
+    Container.remoteMethod('getrawfilenames', function (ctx) {
 
+    });
     // practical example
     // Container.afterRemote('upload', function (ctx, unused, next) {
     //     console.log('vvv: good');

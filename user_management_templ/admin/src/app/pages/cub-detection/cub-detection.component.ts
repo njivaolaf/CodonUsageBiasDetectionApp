@@ -17,6 +17,11 @@ import { Dna, DnaApi, LoopBackFilter, LoopBackConfig } from '../../shared/sdk';
 import { Uploader } from 'angular2-http-file-upload';
 import { MyUploadItem } from '../my-upload-item';
 
+
+import { ChartistJsService } from './chartistJs.service';
+
+
+
 export class DropDownDNAValue {
   value: string;
   label: string;
@@ -30,8 +35,8 @@ export class DropDownDNAValue {
 @Component({
   selector: 'cub-detection',
   templateUrl: './cub-detection.html',
-  styleUrls: ['./cub-detection.scss'],
-  providers: [Pages, Uploader],
+  styleUrls: ['./cub-detection.scss',],
+  providers: [Pages, Uploader, ChartistJsService],
 })
 export class CubDetectionComponent implements OnInit, OnDestroy {
   private maxFileUploadSize: number = 1000000; // ~ 1GB
@@ -39,9 +44,12 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
   private selectedFile: File = null;
   private pdfContainer: string = 'dnafiles';
 
+  private viewMode: number = 0; // toggle between 0 or 1 , 0 = initial, 1 = CHART view
 
+  private transferLimitPerFile: number = 200000; // in bytes, should match with SERVER
 
-  //  isLoggedIn: Observable<any>;
+  data: any; // to be used in CHART
+
   existingDnaList: Dna[] = [];
   selectedDnaSeqID: number;
   constructor(private authService: AuthService, private dnaApi: DnaApi,
@@ -49,7 +57,10 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
     public uploaderService: Uploader, private loopBackAuth: LoopBackAuth,
     protected containerApi: ContainerApi,
 
-    private notificationsService: NotificationsService) {
+    private notificationsService: NotificationsService,
+    private _chartistJsService: ChartistJsService,
+
+  ) {
 
     //   _Page.updateRoute();
   }
@@ -67,6 +78,11 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
   //     }
   //   }
   // }
+
+
+  getResponsive(padding, offset) {
+    return this._chartistJsService.getResponsive(padding, offset);
+  }
 
   loadDna(): void { // and put into combobox
     this.dnaApi.find<Dna>().subscribe(
@@ -108,13 +124,14 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
 
 
   importFromTextClicked(event: any) {
-
-
+    let initFileSize: number;
     if (event.currentTarget.files.length > 0) {
       //  event.currentTarget.files[0].name); //---> FILE NAME
       // event.currentTarget.files[0].type); // ---> FILE TYPE
+      initFileSize = event.currentTarget.files[0].size;
       if ((event.currentTarget.files[0].type === 'text/plain') &&
         (event.currentTarget.files[0].size < this.maxFileUploadSize)) {
+
         console.log('INFO: It is a TEXT file');
 
         console.log('PRE-importing into excel now...');
@@ -122,17 +139,49 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
         const containerToSavePdf: string = this.serverLocation.concat('/api/').
           concat('containers/'.concat(this.pdfContainer).concat('/upload?access_token=')
             .concat(this.loopBackAuth.getAccessTokenId()));
-        const myUploadItem = new MyUploadItem(this.selectedFile, containerToSavePdf);
 
 
+        const uploadDate = new Date().toDateString();
+
+        // SLICING the file into different BLOBS
+        const partOfFile = this.selectedFile.slice(0, 10, '');
+        // const myUploadItem = new MyUploadItem(partOfFile, containerToSavePdf);
+        // myUploadItem.headers = { HeaderName: 'TestHeader' };
+        // myUploadItem.formData = { newfilename: 'SUCCESS FILE NAME' };
+
+
+        const uploadLimitInBytesPerFile = this.transferLimitPerFile; // 700 000 bytes
+        const totalFilesToBeUploaded = Math.ceil(initFileSize / uploadLimitInBytesPerFile);
+        const lastBytesRemaining = initFileSize % uploadLimitInBytesPerFile;
+        console.log('totalFilesToBeUploaded', totalFilesToBeUploaded);
+        console.log('lastBytesRemaining:', lastBytesRemaining);
+
+        let myUploadItem: MyUploadItem[] = [];
+        let blobsToBeSent: Blob[] = [];
+        let bytesSliced = 0;
+        var blobIndexNum = 0;
+
+        for (let blobIndex = 0; blobIndex < totalFilesToBeUploaded; blobIndex++) {
+          console.log('entered for');
+          if (blobIndex < (totalFilesToBeUploaded - 1)) {
+            blobsToBeSent.push(this.selectedFile.slice(bytesSliced, bytesSliced + uploadLimitInBytesPerFile));
+            bytesSliced += uploadLimitInBytesPerFile;
+          }
+          else {
+            blobsToBeSent.push(this.selectedFile.slice(bytesSliced, bytesSliced + lastBytesRemaining));
+          }
+          myUploadItem.push(new MyUploadItem(blobsToBeSent[blobIndex], containerToSavePdf));
+          console.log('pushed upload item')
+        }
+        // ------------------------------UPLOADING THE FILES-----------
+        //   console.log(' myUploadItem.headers', myUploadItem.headers);
         this.uploaderService.onSuccessUpload = (item, response, status, headers) => {
           /////////Update image url on news/////////////////////////////////////////////////////
           console.log('Success: PDF has been uploaded');
+          this.setupCHART();
 
-
-        };
+        }
         this.uploaderService.onErrorUpload = (item, response, status, headers) => {
-          //   this.onUploadErrorDeleteNewsById(_news.id);
           console.log('ERROR: error on upload');
         };
 
@@ -140,12 +189,20 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
           // complete callback, called regardless of success or failure
           console.log('COMPLETED: PDF upload has been completed');
         };
-        // this.uploaderService.onProgressUpload  // can be reworked to know PROGRESS of UPLOAD
-        this.uploaderService.upload(myUploadItem);
+
+        myUploadItem.forEach(oneUploadItem => {
+          console.log('uploading now');
+          this.uploaderService.upload(oneUploadItem);
+        });
       }
-    }
-    else {
+    } else {
       console.log('Info: event is undefined');
     }
+  }
+
+  private setupCHART(): void {
+    this.viewMode = 1;
+
+    this.data = this._chartistJsService.getAll();
   }
 }

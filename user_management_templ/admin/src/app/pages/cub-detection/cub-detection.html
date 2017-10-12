@@ -1,6 +1,6 @@
 <div class="auth-main" *ngIf="!isError">
 
-  <form>
+  <form *ngIf="viewMode==0">
 
     <div class="form-group">
       <textarea placeholder="example: atctccaaaagct..." class="form-control" id="dnaseqInput"></textarea>
@@ -9,8 +9,9 @@
       <button (click)="clearClicked()" class="btn">Clear</button>
       <!-- <button (click)="importFromTextClicked()" class="btn">Import from file(.txt)</button>
          -->
-    <input name="newsfileuploadbox" type="file" id="fileuploadbox" class="btn" #fileuploadbox (change)="importFromTextClicked($event)" />            
-      
+      <input name="newsfileuploadbox" type="file" id="fileuploadbox" class="btn" #fileuploadbox (change)="importFromTextClicked($event)"
+      />
+
 
 
     </div>
@@ -45,3 +46,23 @@
       <button (click)="calculateClicked()" class="btn btn-primary">Calculate</button>
     </div>
   </form>
+
+  <div id="graphCub" *ngIf="viewMode==1">
+
+    <section class="chartist">
+      <div class="row">
+        <div class="col-md-6 ">
+
+          <ba-card cardTitle="chart.bars" baCardClass="with-scroll">
+            <h5 translate>{{'chart.multi_line_labels_bar_chart'}}</h5>
+            <ba-chartist-chart baChartistChartClass="ct-chart" baChartistChartType="Bar" [baChartistChartData]="data['multiBarData']"
+              [baChartistChartOptions]="data['multiBarOptions']" [baChartistChartResponsive]="data['multiBarResponsive']">
+            </ba-chartist-chart>
+
+          </ba-card>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</div>
