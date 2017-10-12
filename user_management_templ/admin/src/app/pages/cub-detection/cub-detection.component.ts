@@ -123,18 +123,24 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
   }
 
 
+  private blobToFile = (theBlob: Blob, fileName: string): File => {
+    const b: any = theBlob;
+    b.lastModifiedDate = new Date();
+    b.name = fileName;
+    return <File>theBlob; // casting to FILE type
+  }
+
   importFromTextClicked(event: any) {
     let initFileSize: number;
+    let initFileName: string;
     if (event.currentTarget.files.length > 0) {
-      //  event.currentTarget.files[0].name); //---> FILE NAME
-      // event.currentTarget.files[0].type); // ---> FILE TYPE
       initFileSize = event.currentTarget.files[0].size;
+      initFileName = event.currentTarget.files[0].name;
+      initFileName = initFileName.slice(0, -4);
       if ((event.currentTarget.files[0].type === 'text/plain') &&
         (event.currentTarget.files[0].size < this.maxFileUploadSize)) {
 
-        console.log('INFO: It is a TEXT file');
-
-        console.log('PRE-importing into excel now...');
+        console.log('Preparing the text file now...');
         this.selectedFile = (<HTMLInputElement>window.document.getElementById('fileuploadbox')).files[0];
         const containerToSavePdf: string = this.serverLocation.concat('/api/').
           concat('containers/'.concat(this.pdfContainer).concat('/upload?access_token=')
@@ -143,13 +149,10 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
 
         const uploadDate = new Date().toDateString();
 
-        // SLICING the file into different BLOBS
-        const partOfFile = this.selectedFile.slice(0, 10, '');
-        // const myUploadItem = new MyUploadItem(partOfFile, containerToSavePdf);
+        // -----------------SLICING the file into different BLOBS
+
         // myUploadItem.headers = { HeaderName: 'TestHeader' };
-        // myUploadItem.formData = { newfilename: 'SUCCESS FILE NAME' };
-
-
+        // myUploadItem.formData = { newfilename: 'SUCCESS FILE NAME' }
         const uploadLimitInBytesPerFile = this.transferLimitPerFile; // 700 000 bytes
         const totalFilesToBeUploaded = Math.ceil(initFileSize / uploadLimitInBytesPerFile);
         const lastBytesRemaining = initFileSize % uploadLimitInBytesPerFile;
@@ -157,21 +160,33 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
         console.log('lastBytesRemaining:', lastBytesRemaining);
 
         let myUploadItem: MyUploadItem[] = [];
-        let blobsToBeSent: Blob[] = [];
+        let fileParts: File[] = [];
         let bytesSliced = 0;
-        var blobIndexNum = 0;
-
+        let filepartName: string = initFileName;
         for (let blobIndex = 0; blobIndex < totalFilesToBeUploaded; blobIndex++) {
+          //  setting the part name
+          filepartName = initFileName.concat('_').concat(blobIndex.toString()).
+            concat('.txt'); // eg: myfilename.txt becomes myfilename0.txt 
           console.log('entered for');
           if (blobIndex < (totalFilesToBeUploaded - 1)) {
-            blobsToBeSent.push(this.selectedFile.slice(bytesSliced, bytesSliced + uploadLimitInBytesPerFile));
+            fileParts.push(
+              this.blobToFile(
+                this.selectedFile.slice(
+                  bytesSliced, bytesSliced + uploadLimitInBytesPerFile),
+                filepartName,
+              ),
+            );
             bytesSliced += uploadLimitInBytesPerFile;
+          } else {
+            fileParts.push(
+              this.blobToFile(
+                this.selectedFile.slice(bytesSliced, bytesSliced + lastBytesRemaining),
+                filepartName,
+              ),
+            );
           }
-          else {
-            blobsToBeSent.push(this.selectedFile.slice(bytesSliced, bytesSliced + lastBytesRemaining));
-          }
-          myUploadItem.push(new MyUploadItem(blobsToBeSent[blobIndex], containerToSavePdf));
-          console.log('pushed upload item')
+          myUploadItem.push(new MyUploadItem(fileParts[blobIndex], containerToSavePdf));
+          console.log('pushed upload item');
         }
         // ------------------------------UPLOADING THE FILES-----------
         //   console.log(' myUploadItem.headers', myUploadItem.headers);
@@ -180,7 +195,7 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
           console.log('Success: PDF has been uploaded');
           this.setupCHART();
 
-        }
+        };
         this.uploaderService.onErrorUpload = (item, response, status, headers) => {
           console.log('ERROR: error on upload');
         };
@@ -191,6 +206,7 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
         };
 
         myUploadItem.forEach(oneUploadItem => {
+          oneUploadItem.alias = 'text/plain';
           console.log('uploading now');
           this.uploaderService.upload(oneUploadItem);
         });
