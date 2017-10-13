@@ -42,11 +42,11 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
   private maxFileUploadSize: number = 1000000; // ~ 1GB
   serverLocation: string = LoopBackConfig.getPath();
   private selectedFile: File = null;
-  private pdfContainer: string = 'dnafiles';
+  private pdfContainer: string = 'dnafiles';  // name of the folder in the API
 
   private viewMode: number = 0; // toggle between 0 or 1 , 0 = initial, 1 = CHART view
 
-  private transferLimitPerFile: number = 200000; // in bytes, should match with SERVER
+  private transferLimitPerFile: number = 20000; // in bytes, should match with SERVER
 
   data: any; // to be used in CHART
 
@@ -146,8 +146,14 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
           concat('containers/'.concat(this.pdfContainer).concat('/upload?access_token=')
             .concat(this.loopBackAuth.getAccessTokenId()));
 
-
-        const uploadDate = new Date().toDateString();
+        // date is used as an identifier
+        const uploadDate = new Date();
+        const uploadDateStr = uploadDate.getDate().toString().concat(uploadDate.getMonth().toString()).
+          concat(uploadDate.getFullYear().toString()).concat('_').
+          concat(uploadDate.getHours().toString()).concat(uploadDate.getMinutes().toString()).
+          concat(uploadDate.getSeconds().toString()).
+          concat(uploadDate.getMilliseconds().toString())
+          ;
 
         // -----------------SLICING the file into different BLOBS
 
@@ -159,15 +165,15 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
         console.log('totalFilesToBeUploaded', totalFilesToBeUploaded);
         console.log('lastBytesRemaining:', lastBytesRemaining);
 
+        let successUploadCount = 0;
         let myUploadItem: MyUploadItem[] = [];
         let fileParts: File[] = [];
         let bytesSliced = 0;
-        let filepartName: string = initFileName;
+        let filepartName: string;
         for (let blobIndex = 0; blobIndex < totalFilesToBeUploaded; blobIndex++) {
           //  setting the part name
-          filepartName = initFileName.concat('_').concat(blobIndex.toString()).
+          filepartName = uploadDateStr.concat('$').concat(initFileName).concat('_').concat(blobIndex.toString()).
             concat('.txt'); // eg: myfilename.txt becomes myfilename0.txt 
-          console.log('entered for');
           if (blobIndex < (totalFilesToBeUploaded - 1)) {
             fileParts.push(
               this.blobToFile(
@@ -193,7 +199,12 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
         this.uploaderService.onSuccessUpload = (item, response, status, headers) => {
           /////////Update image url on news/////////////////////////////////////////////////////
           console.log('Success: PDF has been uploaded');
-          this.setupCHART();
+          successUploadCount++;
+          if (successUploadCount === totalFilesToBeUploaded) {
+            console.log('setting up chart');
+            this.setupCHART();
+            successUploadCount = 0;
+          }
 
         };
         this.uploaderService.onErrorUpload = (item, response, status, headers) => {
@@ -202,17 +213,18 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
 
         this.uploaderService.onCompleteUpload = (item, response, status, headers) => {
           // complete callback, called regardless of success or failure
-          console.log('COMPLETED: PDF upload has been completed');
+          // console.log('COMPLETED: PDF upload has been completed');
         };
 
         myUploadItem.forEach(oneUploadItem => {
+          oneUploadItem.formData = { dateUploaded: uploadDate };
           oneUploadItem.alias = 'text/plain';
           console.log('uploading now');
           this.uploaderService.upload(oneUploadItem);
         });
       }
     } else {
-      console.log('Info: event is undefined');
+      console.log('Alert: Please choose a file.');
     }
   }
 

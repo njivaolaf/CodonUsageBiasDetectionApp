@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {BaThemeConfigProvider} from '../../theme';
+import { BaThemeConfigProvider } from '../../theme';
 
 @Injectable()
 export class ChartistJsService {
@@ -70,13 +70,13 @@ export class ChartistJsService {
       height: '300px'
     },
     multiBarData: {
-      labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
+      labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4', 'Quarter 5'],
       series: [
-        [5, 4, 3, 7],
-        [3, 2, 9, 5],
-        [1, 5, 8, 4],
-        [2, 3, 4, 6],
-        [4, 1, 2, 1]
+        [5, 4, 3, 7, 100],
+        [3, 2, 1000, 5, 200],
+        [1, 5, 8, 4, 300],
+        [2, 3, 4, 6, 600],
+        [4, 1, 2, 1, 200]
       ]
     },
     multiBarOptions: {
@@ -170,7 +170,7 @@ export class ChartistJsService {
     }
   };
 
-  constructor(private _baConfig:BaThemeConfigProvider) {
+  constructor(private _baConfig: BaThemeConfigProvider) {
   }
 
   public getAll() {

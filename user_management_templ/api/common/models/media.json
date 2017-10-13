@@ -16,6 +16,10 @@
     "size": {
       "type": "number",
       "required": true
+    },
+    "dateCreated":{
+       "type": "date",
+      "required": true
     }
   },
   "validations": [],

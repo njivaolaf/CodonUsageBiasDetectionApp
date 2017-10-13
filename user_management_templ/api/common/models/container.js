@@ -35,6 +35,7 @@ module.exports = function (Container) {
                     type: 0,
                     name: file.name,
                     size: file.size,
+                    dateCreated: modelInstance.result.fields.dateUploaded[0]
                 });
 
                 var myStream = Container.downloadStream(file.container, file.name);
