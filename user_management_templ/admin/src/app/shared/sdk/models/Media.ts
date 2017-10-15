@@ -5,6 +5,7 @@ export interface MediaInterface {
   "type"?: number;
   "name": string;
   "size": number;
+  "dateCreated": Date;
   "id"?: number;
 }
 
@@ -12,6 +13,7 @@ export class Media implements MediaInterface {
   "type": number;
   "name": string;
   "size": number;
+  "dateCreated": Date;
   "id": number;
   constructor(data?: MediaInterface) {
     Object.assign(this, data);
@@ -56,6 +58,10 @@ export class Media implements MediaInterface {
         "size": {
           name: 'size',
           type: 'number'
+        },
+        "dateCreated": {
+          name: 'dateCreated',
+          type: 'Date'
         },
         "id": {
           name: 'id',

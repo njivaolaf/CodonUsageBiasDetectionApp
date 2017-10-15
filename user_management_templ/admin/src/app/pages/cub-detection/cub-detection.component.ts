@@ -131,6 +131,9 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
   }
 
   importFromTextClicked(event: any) {
+
+    // note: assuming all inputs are mRNA (actg)
+
     let initFileSize: number;
     let initFileName: string;
     if (event.currentTarget.files.length > 0) {
@@ -201,9 +204,19 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
           console.log('Success: PDF has been uploaded');
           successUploadCount++;
           if (successUploadCount === totalFilesToBeUploaded) {
-            console.log('setting up chart');
-            this.setupCHART();
-            successUploadCount = 0;
+            this.containerApi.getCbuResults(uploadDateStr.concat('$').
+              concat(initFileName), totalFilesToBeUploaded).subscribe(
+              results => {
+                console.log('results:', results);
+
+                this.setupCHART();
+                successUploadCount = 0;
+              }, err => {
+                if (err && err.message) {
+                  console.log(err.message);
+                }
+              },
+            );
           }
 
         };
@@ -230,7 +243,6 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
 
   private setupCHART(): void {
     this.viewMode = 1;
-
     this.data = this._chartistJsService.getAll();
   }
 }

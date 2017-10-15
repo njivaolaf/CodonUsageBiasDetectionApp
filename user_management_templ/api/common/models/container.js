@@ -16,7 +16,7 @@ module.exports = function (Container) {
         })
     }
 
-    Container.getFileName = function(file,req,res){
+    Container.getFileName = function (file, req, res) {
         console.log('getting file name');
         return 'nameworkingTEST';
     }
@@ -41,7 +41,7 @@ module.exports = function (Container) {
                 var myStream = Container.downloadStream(file.container, file.name);
                 streamToString(myStream, function (mystr) {
                     Container.getFileName();
-                    console.log('MYSTR:', mystr);
+                 //   console.log('file part contents:', mystr);     // output the stream
                 });
 
                 //   stream.pipe(process.stdout);
@@ -59,9 +59,24 @@ module.exports = function (Container) {
         }
     });
 
-    Container.remoteMethod('getrawfilenames', function (ctx) {
+    function cubCalculations (name){
+        this.Thymine = 50;
+        this.cubNameTest = name;
+    } 
 
-    });
+    Container.getCbuResults = function (fileName, totalParts, cb) {
+        console.log('filename is: ', fileName);
+        console.log('totalParts is: ', totalParts);
+        var newCalc = new cubCalculations(fileName);
+        cb(null, newCalc)
+    };
+    Container.remoteMethod('getCbuResults', {
+        accepts: [
+            { arg: 'fileName', type: 'string' },
+            { arg: 'totalParts', type: 'number' }
+        ],
+        returns: { arg: 'cbuResults', type: 'object' }
+    })
     // practical example
     // Container.afterRemote('upload', function (ctx, unused, next) {
     //     console.log('vvv: good');
