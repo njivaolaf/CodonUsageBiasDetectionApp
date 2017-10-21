@@ -117,11 +117,11 @@ module.exports = function (Container) {
                     while (!searchCodon_end) {
                         if (searchCodonCount == this.acidsResult[search_count].acidCodons.length) {
                             searchCodon_end = true;
-                            search_end = true;
                         }
 
                         else if (searchSTR == this.acidsResult[search_count].acidCodons[searchCodonCount]) {
-                            this.acidsResult[search_count].codonCount[searchCodonCount] += 1;
+                            this.acidsResult[search_count].codonCount[searchCodonCount]++;
+                            this.acidsResult[search_count].totalFound++;
                         }
                         searchCodonCount++;
                     }
@@ -139,16 +139,18 @@ module.exports = function (Container) {
 
 
 
-    function aminoAcid(name, codons) {
-        this.totalFound = 0;
-        this.acidName = name;
-        this.outOf1000 = 0;
-        this.fraction1 = 0.00;
-        this.acidCodons = [];
-        this.codonCount = [];
-        for (var oneCodon in codons) {
-            this.acidCodons.push(oneCodon);
-            this.codonCount.push(0);
+    class aminoAcid {
+        constructor(name, codons){
+            this.totalFound = 0;
+            this.acidName = name;
+            this.outOf1000 = 0;
+            this.fraction1 = 0.00;
+            this.acidCodons = [];
+            this.codonCount = [];
+            for (var oneCodon of codons) {
+                this.acidCodons.push(oneCodon);
+                this.codonCount.push(0);
+            }
         }
     }
 
@@ -167,7 +169,7 @@ module.exports = function (Container) {
         var char1 = '';
         var char2 = '';
         //---
-        for (var FileCounter = 0; FileCounter < (filenameList.length - 1); FileCounter++) {
+        for (var FileCounter = 0; FileCounter < filenameList.length ; FileCounter++) {
             var myStream = Container.downloadStream(dnaFilesContainer, filenameList[FileCounter]);
             streamToStringForGetFiles(myStream, function (mystr) {
                 // console.log('FILE part CONTENTS:', mystr);    
@@ -181,7 +183,8 @@ module.exports = function (Container) {
                 }
                 var charCounter = 0;
                 var CodonTrioToSearch = '';
-                console.log('mystrLength:', mystr.length);
+         //       console.log('mystrLength:', mystr.length);
+         //       console.log('MYSTRING:',mystr);
                 var someStr = mystr;
                 while (charCounter < someStr.length) {
                     if (char0 == '') {
@@ -195,6 +198,7 @@ module.exports = function (Container) {
                     }
                     CodonTrioToSearch = CodonTrioToSearch.concat(char0).concat(char1).concat(char2);
                     console.log('CodonTrioToSearch', CodonTrioToSearch);
+                    currentCalculationObj.searchCodon(CodonTrioToSearch.toUpperCase());
                     CodonTrioToSearch = '';
 
                     char0 = '';
