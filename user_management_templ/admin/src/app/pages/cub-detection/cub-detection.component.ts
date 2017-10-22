@@ -19,7 +19,7 @@ import { MyUploadItem } from '../my-upload-item';
 
 
 import { ChartistJsService } from './chartistJs.service';
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';   // ngx chart
 
 
 export class DropDownDNAValue {
@@ -52,6 +52,87 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
 
   existingDnaList: Dna[] = [];
   selectedDnaSeqID: number;
+
+  //ngx chart PART
+  single: any[] = [
+    {
+      "name": "Germany",
+      "value": 8940000
+    },
+    {
+      "name": "USA",
+      "value": 5000000
+    },
+    {
+      "name": "France",
+      "value": 7200000
+    }
+  ];
+  multi: any[] = [
+    {
+      "name": "Germany",
+      "series": [
+        {
+          "name": "2010",
+          "value": 7300000
+        },
+        {
+          "name": "2011",
+          "value": 8940000
+        }
+      ]
+    },
+
+    {
+      "name": "USA",
+      "series": [
+        {
+          "name": "2010",
+          "value": 7870000
+        },
+        {
+          "name": "2011",
+          "value": 8270000
+        }
+      ]
+    },
+
+    {
+      "name": "France",
+      "series": [
+        {
+          "name": "2010",
+          "value": 5000002
+        },
+        {
+          "name": "2011",
+          "value": 5800000
+        }
+      ]
+    }
+  ];;
+
+  view: any[] = [700, 400];
+
+  // options
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  showLegend = true;
+  showXAxisLabel = true;
+  xAxisLabel = 'DNA';
+  showYAxisLabel = true;
+  yAxisLabel = 'Population';
+
+  colorScheme = {
+    domain: ['#123456', '#A10A28', '#C7B42C', '#BBBBBB']
+  };
+  //
+
+
+  onSelect(event) {
+    console.log(event);
+  }
   constructor(private authService: AuthService, private dnaApi: DnaApi,
     private _menuService: BaMenuService, private _Page: Pages,
     public uploaderService: Uploader, private loopBackAuth: LoopBackAuth,
@@ -61,7 +142,7 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
     private _chartistJsService: ChartistJsService,
 
   ) {
-
+    // Object.assign(this, {this.single, this.multi});  
     //   _Page.updateRoute();
   }
   ngOnInit(): void {

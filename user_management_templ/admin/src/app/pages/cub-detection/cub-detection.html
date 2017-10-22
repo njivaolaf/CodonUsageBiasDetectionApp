@@ -17,9 +17,9 @@
     </div>
     <div class="form-group">
       <select *ngIf="existingDnaList" class="form-control" id="comboBoxDna" name="cbBoxDna" [(ngModel)]="selectedDnaSeqID">
-              <option *ngFor="let aDna of existingDnaList; let dnaIndex=index" [ngValue]="aDna.id">{{aDna.sequencename}}</option>
-             
-            </select>
+        <option *ngFor="let aDna of existingDnaList; let dnaIndex=index" [ngValue]="aDna.id">{{aDna.sequencename}}</option>
+
+      </select>
     </div>
     <div>
       test: {{selectedDnaSeqID}}
@@ -30,15 +30,15 @@
     <div class="input-demo radio-demo row">
       <div class="col-md-4">
         <label class="radio-inline custom-radio nowrap">
-              <input type="radio" name="BareRadio" id="fastaRadio" value="fasta">
-              <span style ="color:aliceblue">Fasta</span>
-            </label>
+          <input type="radio" name="BareRadio" id="fastaRadio" value="fasta">
+          <span style="color:aliceblue">Fasta</span>
+        </label>
       </div>
       <div class="col-md-4">
         <label class="radio-inline custom-radio nowrap">
-                <input type="radio" name="BareRadio" id="BareRadio" value="bare">
-                <span style ="color:aliceblue">Bare</span>
-            </label>
+          <input type="radio" name="BareRadio" id="BareRadio" value="bare">
+          <span style="color:aliceblue">Bare</span>
+        </label>
       </div>
 
     </div>
@@ -48,7 +48,7 @@
   </form>
 
   <div id="graphCub" *ngIf="viewMode==1">
-
+<!-- 
     <section class="chartist">
       <div class="row">
         <div class="col-md-10">
@@ -65,8 +65,14 @@
       <div class="form-group">
         <button (click)="calculateClicked()" class="btn btn-primary">Export to CSV</button>
       </div>
-    </section>
-    
+    </section> -->
+
+    <ngx-charts-bar-vertical-stacked [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis"
+      [yAxis]="showYAxis" [animations]=	false [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+    </ngx-charts-bar-vertical-stacked>
+
+
   </div>
 
 </div>

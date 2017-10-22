@@ -45,7 +45,7 @@ export type StoreType = {
     App
   ],
   imports: [ // import Angular's modules
-    BrowserModule,
+    BrowserModule, BrowserAnimationsModule,
     HttpModule,
     RouterModule,
     FormsModule,

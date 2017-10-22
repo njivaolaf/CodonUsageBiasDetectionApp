@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgaModule } from '../../theme/nga.module';
@@ -9,7 +9,8 @@ import { routing } from './cub-detection.routing';
 
 import { AppTranslationModule } from '../../app.translation.module';
 import { SharedModule } from '../../shared/shared.module';
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import { SharedModule } from '../../shared/shared.module';
     NgaModule,
     routing,
     AppTranslationModule,
-    SharedModule,
+    SharedModule, NgxChartsModule,// BrowserAnimationsModule
   ],
   declarations: [
     CubDetectionComponent,
