@@ -51,7 +51,7 @@
 
     <section class="chartist">
       <div class="row">
-        <div class="col-md-6 ">
+        <div class="col-md-10">
 
           <ba-card cardTitle="chart.bars" baCardClass="with-scroll">
             <h5 translate>{{'chart.multi_line_labels_bar_chart'}}</h5>
@@ -61,6 +61,9 @@
 
           </ba-card>
         </div>
+      </div>
+      <div class="form-group">
+        <button (click)="calculateClicked()" class="btn btn-primary">Export to CSV</button>
       </div>
     </section>
     

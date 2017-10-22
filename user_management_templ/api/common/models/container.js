@@ -76,7 +76,7 @@ module.exports = function (Container) {
 
     class cubCalculations {        //class cubCalculations
         constructor() {
-
+            this.codonsCounter = 0;
             this.acidsResult = [];
             this.acidsResult.push(new aminoAcid('Ala', ['GCG', 'GCA', 'GCT', 'GCC']));
             this.acidsResult.push(new aminoAcid('Cys', ['TGT', 'TGC']));
@@ -115,13 +115,14 @@ module.exports = function (Container) {
                     var searchCodon_end = false;
                     var searchCodonCount = 0;
                     while (!searchCodon_end) {
-                        if (searchCodonCount == this.acidsResult[search_count].acidCodons.length) {
+                        if (searchCodonCount == this.acidsResult[search_count].currentCodons.length) {
                             searchCodon_end = true;
                         }
 
-                        else if (searchSTR == this.acidsResult[search_count].acidCodons[searchCodonCount]) {
-                            this.acidsResult[search_count].codonCount[searchCodonCount]++;
+                        else if (searchSTR == this.acidsResult[search_count].currentCodons[searchCodonCount].codonName) {
+                            this.acidsResult[search_count].currentCodons[searchCodonCount].codonFoundCounter++;
                             this.acidsResult[search_count].totalFound++;
+                            this.codonsCounter++;
                         }
                         searchCodonCount++;
                     }
@@ -132,25 +133,45 @@ module.exports = function (Container) {
                 }
             }
         }
-        displayMsgTest() {
-            console.log('THIS IS THE MESSAGE');
+        calculateFraction() {
+            var currentfraction;
+            for (var acidIndex in this.acidsResult) {
+                for (var codonIndex in this.acidsResult[acidIndex].currentCodons) {
+                    currentfraction = 0;
+                    if ((this.codonsCounter > 0) && (this.acidsResult[acidIndex].currentCodons[codonIndex].codonFoundCounter > 0)) {
+                        currentfraction  =  this.acidsResult[acidIndex].currentCodons[codonIndex].codonFoundCounter / this.codonsCounter
+                        this.acidsResult[acidIndex].currentCodons[codonIndex].fraction1 = currentfraction;
+                    }
+                    this.acidsResult[acidIndex].currentCodons[codonIndex].outOf1000 = currentfraction*1000;
+                    
+                    
+                }
+            }
+
+
         }
+
     }
 
 
 
     class aminoAcid {
-        constructor(name, codons){
+        constructor(name, codonNames) {     //codons = array of Codon NAMES
             this.totalFound = 0;
             this.acidName = name;
+            this.currentCodons = [];
+            for (var oneCodonName of codonNames) {
+                this.currentCodons.push(new codon(oneCodonName));
+                //  this.codonFoundCounter.push(0);
+            }
+        }
+    }
+    class codon {        // triplet
+        constructor(codonname) {
+            this.codonName = codonname;
+            this.codonFoundCounter = 0;
             this.outOf1000 = 0;
             this.fraction1 = 0.00;
-            this.acidCodons = [];
-            this.codonCount = [];
-            for (var oneCodon of codons) {
-                this.acidCodons.push(oneCodon);
-                this.codonCount.push(0);
-            }
         }
     }
 
@@ -169,7 +190,7 @@ module.exports = function (Container) {
         var char1 = '';
         var char2 = '';
         //---
-        for (var FileCounter = 0; FileCounter < filenameList.length ; FileCounter++) {
+        for (var FileCounter = 0; FileCounter < filenameList.length; FileCounter++) {
             var myStream = Container.downloadStream(dnaFilesContainer, filenameList[FileCounter]);
             streamToStringForGetFiles(myStream, function (mystr) {
                 // console.log('FILE part CONTENTS:', mystr);    
@@ -183,8 +204,8 @@ module.exports = function (Container) {
                 }
                 var charCounter = 0;
                 var CodonTrioToSearch = '';
-         //       console.log('mystrLength:', mystr.length);
-         //       console.log('MYSTRING:',mystr);
+                //       console.log('mystrLength:', mystr.length);
+                //       console.log('MYSTRING:',mystr);
                 var someStr = mystr;
                 while (charCounter < someStr.length) {
                     if (char0 == '') {
@@ -199,6 +220,7 @@ module.exports = function (Container) {
                     CodonTrioToSearch = CodonTrioToSearch.concat(char0).concat(char1).concat(char2);
                     console.log('CodonTrioToSearch', CodonTrioToSearch);
                     currentCalculationObj.searchCodon(CodonTrioToSearch.toUpperCase());
+                    currentCalculationObj.calculateFraction();
                     CodonTrioToSearch = '';
 
                     char0 = '';

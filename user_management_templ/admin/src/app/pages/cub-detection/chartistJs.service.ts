@@ -70,18 +70,16 @@ export class ChartistJsService {
       height: '300px'
     },
     multiBarData: {
-      labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4', 'Quarter 5'],
+      labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4', 'Quarter 5', 'Quarter 6', 'Quarter 7', 'Quarter 8', 'Quarter 9', 'Quarter 10', 'Quarter11', 'Quarter 12', 'Quarter 13', 'Quarter 14', 'Quarter 15', 'Quarter 16', 'Quarter 17', 'Quarter 18', 'Quarter 19', 'Quarter 20', 'Quarter 21'],
       series: [
-        [5, 4, 3, 7, 100],
-        [3, 2, 1000, 5, 200],
-        [1, 5, 8, 4, 300],
-        [2, 3, 4, 6, 600],
-        [4, 1, 2, 1, 200]
+        [ 100, 14, 50, 80, 100, 14, 50, 80, 100, 14, 50, 80, 100, 60, 130, 144,45 , 45, 14, 50],
+        [75, 40, 20, 30, 50, 80, 100, 14, 50, 80, 100, 14, 50, 80, 100, 14, 30, 45, 78, 67, 90],
+      
       ]
     },
     multiBarOptions: {
       fullWidth: true,
-      height: '300px',
+      height: '400px',
       stackBars: true,
       axisX: {
         labelInterpolationFnc: function (value) {
@@ -91,7 +89,7 @@ export class ChartistJsService {
         }
       },
       axisY: {
-        offset: 20
+        offset: 40
       }
     },
     multiBarResponsive: [

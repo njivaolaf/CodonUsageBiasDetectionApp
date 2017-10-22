@@ -200,10 +200,9 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
         // ------------------------------UPLOADING THE FILES-----------
         //   console.log(' myUploadItem.headers', myUploadItem.headers);
         this.uploaderService.onSuccessUpload = (item, response, status, headers) => {
-          /////////Update image url on news/////////////////////////////////////////////////////
           console.log('Success: PDF has been uploaded');
           successUploadCount++;
-          if (successUploadCount === totalFilesToBeUploaded) {
+          if (successUploadCount === totalFilesToBeUploaded) {    // when all files have been uploaded SUCCESSFULLy
             this.containerApi.getCbuResults(uploadDateStr.concat('$').
               concat(initFileName), totalFilesToBeUploaded).subscribe(
               results => {
