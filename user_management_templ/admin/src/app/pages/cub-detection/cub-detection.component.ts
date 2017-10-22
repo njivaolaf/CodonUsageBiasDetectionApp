@@ -48,71 +48,12 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
 
   private transferLimitPerFile: number = 20000; // in bytes, should match with SERVER
 
-  data: any; // to be used in CHART
-
   existingDnaList: Dna[] = [];
   selectedDnaSeqID: number;
 
-  //ngx chart PART
-  single: any[] = [
-    {
-      "name": "Germany",
-      "value": 8940000
-    },
-    {
-      "name": "USA",
-      "value": 5000000
-    },
-    {
-      "name": "France",
-      "value": 7200000
-    }
-  ];
-  multi: any[] = [
-    {
-      "name": "Germany",
-      "series": [
-        {
-          "name": "2010",
-          "value": 7300000
-        },
-        {
-          "name": "2011",
-          "value": 8940000
-        }
-      ]
-    },
-
-    {
-      "name": "USA",
-      "series": [
-        {
-          "name": "2010",
-          "value": 7870000
-        },
-        {
-          "name": "2011",
-          "value": 8270000
-        }
-      ]
-    },
-
-    {
-      "name": "France",
-      "series": [
-        {
-          "name": "2010",
-          "value": 5000002
-        },
-        {
-          "name": "2011",
-          "value": 5800000
-        }
-      ]
-    }
-  ];;
-
-  view: any[] = [700, 400];
+  // SETTINGS for CHART
+  graphDATA: any[] = [];
+  view: any[] = [1200, 400];  // size of CHART
 
   // options
   showXAxis = true;
@@ -122,10 +63,10 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
   showXAxisLabel = true;
   xAxisLabel = 'DNA';
   showYAxisLabel = true;
-  yAxisLabel = 'Population';
+  yAxisLabel = 'counts';
 
   colorScheme = {
-    domain: ['#123456', '#A10A28', '#C7B42C', '#BBBBBB']
+    domain: ['#FAEBD7', '#2D767F', '#F38181', '#00FFF5']
   };
   //
 
@@ -139,7 +80,6 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
     protected containerApi: ContainerApi,
 
     private notificationsService: NotificationsService,
-    private _chartistJsService: ChartistJsService,
 
   ) {
     // Object.assign(this, {this.single, this.multi});  
@@ -161,9 +101,6 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
   // }
 
 
-  getResponsive(padding, offset) {
-    return this._chartistJsService.getResponsive(padding, offset);
-  }
 
   loadDna(): void { // and put into combobox
     this.dnaApi.find<Dna>().subscribe(
@@ -221,6 +158,7 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
       initFileSize = event.currentTarget.files[0].size;
       initFileName = event.currentTarget.files[0].name;
       initFileName = initFileName.slice(0, -4);
+      this.xAxisLabel = initFileName; //change CHART's x label to FILENAME
       if ((event.currentTarget.files[0].type === 'text/plain') &&
         (event.currentTarget.files[0].size < this.maxFileUploadSize)) {
 
@@ -289,7 +227,7 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
               results => {
                 console.log('results:', results);
 
-                this.setupCHART();
+                this.setupCHART(results);
                 successUploadCount = 0;
               }, err => {
                 if (err && err.message) {
@@ -321,8 +259,33 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
     }
   }
 
-  private setupCHART(): void {
+  private setupCHART(calculationDATA): void {
+    var codonNamesValues;
+    calculationDATA.cbuResults.acidsResult.forEach(
+      oneAcidData => {
+        codonNamesValues = [];
+        oneAcidData.currentCodons.forEach(
+          oneCodonData => {
+            codonNamesValues.push(
+              {
+                "name": oneCodonData.codonName,
+                "value": oneCodonData.codonFoundCounter
+              }
+            );
+          }
+        );
+        this.graphDATA.push(
+          {
+            "name": oneAcidData.acidName,
+            "series": codonNamesValues
+          },
+        );
+
+      }
+    );
+
+
+    //displaychart
     this.viewMode = 1;
-    this.data = this._chartistJsService.getAll();
   }
 }

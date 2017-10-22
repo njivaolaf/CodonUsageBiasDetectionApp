@@ -133,7 +133,7 @@ module.exports = function (Container) {
                 }
             }
         }
-        calculateFraction() {
+        calculateFractionANDgraphData() {
             var currentfraction;
             for (var acidIndex in this.acidsResult) {
                 for (var codonIndex in this.acidsResult[acidIndex].currentCodons) {
@@ -220,7 +220,7 @@ module.exports = function (Container) {
                     CodonTrioToSearch = CodonTrioToSearch.concat(char0).concat(char1).concat(char2);
                     console.log('CodonTrioToSearch', CodonTrioToSearch);
                     currentCalculationObj.searchCodon(CodonTrioToSearch.toUpperCase());
-                    currentCalculationObj.calculateFraction();
+                    currentCalculationObj.calculateFractionANDgraphData();
                     CodonTrioToSearch = '';
 
                     char0 = '';
