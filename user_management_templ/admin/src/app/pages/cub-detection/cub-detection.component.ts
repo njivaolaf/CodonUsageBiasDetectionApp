@@ -88,7 +88,7 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
     this.updateRoute();
     this.loadDna();
   }
- 
+
   loadDna(): void { // and put into combobox
     this.dnaApi.find<Dna>().subscribe(
       data => {
@@ -117,10 +117,9 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
 
   }
   calculateClicked() {
-    console.log('submitted');
     var dnaTextBox = <HTMLInputElement>window.document.getElementById('dnaseqInput');
     var dnaTextBoxValue = dnaTextBox.value;
-    console.log('dnaTestBoxvalue:', dnaTextBoxValue);
+    this.calculateCUB(dnaTextBoxValue, 1);
   }
   clearClicked() {
     console.log('clearing..');
@@ -138,21 +137,44 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
     return <File>theBlob; // casting to FILE type
   }
 
-  importFromTextClicked(event: any) {
 
-    // note: actually assuming all inputs are (actg) // next_to_do: let user choose
+  calculateCUB(event: any, submitMode: number) {  //submitMode 0 : txtfile, 1 : textbox
+
+    const preset_filename = 'yourDNA';
+
     let initFileSize: number;
     let initFileName: string;
-    if (event.currentTarget.files.length > 0) {
-      initFileSize = event.currentTarget.files[0].size;
-      initFileName = event.currentTarget.files[0].name;
+    let eventfilesCount: number;
+    let filetype: string;
+    switch (submitMode) {
+      case 0:
+        eventfilesCount = event.currentTarget.files.length;
+        break;
+      case 1:
+        eventfilesCount = 1;
+        initFileSize = event.length;
+        initFileName = preset_filename.concat('.txt');
+        filetype = 'text/plain';
+        break;
+    }
+
+    if (eventfilesCount > 0) {
+      if (submitMode === 0) {
+        filetype = event.currentTarget.files[0].type;
+        initFileSize = event.currentTarget.files[0].size;
+        initFileName = event.currentTarget.files[0].name;
+        this.selectedFile = (<HTMLInputElement>window.document.getElementById('fileuploadbox')).files[0];
+
+      } else {
+        var fileInArray = [event];
+        var selectedFileBLOB = new Blob(fileInArray);
+        this.selectedFile = this.blobToFile(selectedFileBLOB, initFileName.slice(0, -4) );
+      }
       initFileName = initFileName.slice(0, -4);
       this.xAxisLabel = initFileName; //change CHART's x label to FILENAME
-      if ((event.currentTarget.files[0].type === 'text/plain') &&
-        (event.currentTarget.files[0].size < this.maxFileUploadSize)) {
+      if ((filetype === 'text/plain') &&
+        (initFileSize < this.maxFileUploadSize)) {
 
-        console.log('Preparing the text file now...');
-        this.selectedFile = (<HTMLInputElement>window.document.getElementById('fileuploadbox')).files[0];
         const containerToSavePdf: string = this.serverLocation.concat('/api/').
           concat('containers/'.concat(this.pdfContainer).concat('/upload?access_token=')
             .concat(this.loopBackAuth.getAccessTokenId()));
@@ -171,7 +193,7 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
 
         const uploadLimitInBytesPerFile = this.transferLimitPerFile; // 20 000 bytes actually // can be changed and re-tested with higher values
         // the transferlimitperfile should match the value in config.json in the API(server)
-        const totalFilesToBeUploaded = Math.ceil(initFileSize / uploadLimitInBytesPerFile); 
+        const totalFilesToBeUploaded = Math.ceil(initFileSize / uploadLimitInBytesPerFile);
         const lastBytesRemaining = initFileSize % uploadLimitInBytesPerFile;
         console.log('totalFilesToBeUploaded', totalFilesToBeUploaded);
         console.log('lastBytesRemaining:', lastBytesRemaining);
@@ -233,7 +255,7 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
 
         this.uploaderService.onCompleteUpload = (item, response, status, headers) => {
           // complete callback, called regardless of success or failure
-        
+
         };
 
         myUploadItem.forEach(oneUploadItem => {
@@ -246,6 +268,12 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
     } else {
       console.log('Alert: Please choose a file.');
     }
+  }
+
+
+
+  importFromTextClicked(event: any) {
+    this.calculateCUB(event, 0);
   }
 
   // setting up the DATA containing the calculation results
