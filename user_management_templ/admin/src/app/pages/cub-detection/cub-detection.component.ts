@@ -82,26 +82,13 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
     private notificationsService: NotificationsService,
 
   ) {
-    // Object.assign(this, {this.single, this.multi});  
-    //   _Page.updateRoute();
+
   }
   ngOnInit(): void {
     this.updateRoute();
     this.loadDna();
   }
-  // checkLoggedUpdateMenu() {
-  //   const isLoggedIn = this.authService.isLoggedIn();
-  //   if (typeof isLoggedIn === 'boolean') {
-  //     if (!isLoggedIn) {
-
-  //     console.log('updated to guest_pages_menu()');
-  //     this._menuService.updateMenuByRoutes(<Routes>GUEST_PAGES_MENU);
-  //     }
-  //   }
-  // }
-
-
-
+ 
   loadDna(): void { // and put into combobox
     this.dnaApi.find<Dna>().subscribe(
       data => {
@@ -131,6 +118,9 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
   }
   calculateClicked() {
     console.log('submitted');
+    var dnaTextBox = <HTMLInputElement>window.document.getElementById('dnaseqInput');
+    var dnaTextBoxValue = dnaTextBox.value;
+    console.log('dnaTestBoxvalue:', dnaTextBoxValue);
   }
   clearClicked() {
     console.log('clearing..');
@@ -150,8 +140,7 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
 
   importFromTextClicked(event: any) {
 
-    // note: assuming all inputs are mRNA (actg)
-
+    // note: actually assuming all inputs are (actg) // next_to_do: let user choose
     let initFileSize: number;
     let initFileName: string;
     if (event.currentTarget.files.length > 0) {
@@ -168,7 +157,8 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
           concat('containers/'.concat(this.pdfContainer).concat('/upload?access_token=')
             .concat(this.loopBackAuth.getAccessTokenId()));
 
-        // date is used as an identifier
+        // date is used as an identifier for each file part to be sent to the server
+        //e.g format: <date>_<filename>.txt
         const uploadDate = new Date();
         const uploadDateStr = uploadDate.getDate().toString().concat(uploadDate.getMonth().toString()).
           concat(uploadDate.getFullYear().toString()).concat('_').
@@ -177,12 +167,11 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
           concat(uploadDate.getMilliseconds().toString())
           ;
 
-        // -----------------SLICING the file into different BLOBS
+        // -----------------SLICING the file into several parts
 
-        // myUploadItem.headers = { HeaderName: 'TestHeader' };
-        // myUploadItem.formData = { newfilename: 'SUCCESS FILE NAME' }
-        const uploadLimitInBytesPerFile = this.transferLimitPerFile; // 700 000 bytes
-        const totalFilesToBeUploaded = Math.ceil(initFileSize / uploadLimitInBytesPerFile);
+        const uploadLimitInBytesPerFile = this.transferLimitPerFile; // 20 000 bytes actually // can be changed and re-tested with higher values
+        // the transferlimitperfile should match the value in config.json in the API(server)
+        const totalFilesToBeUploaded = Math.ceil(initFileSize / uploadLimitInBytesPerFile); 
         const lastBytesRemaining = initFileSize % uploadLimitInBytesPerFile;
         console.log('totalFilesToBeUploaded', totalFilesToBeUploaded);
         console.log('lastBytesRemaining:', lastBytesRemaining);
@@ -222,7 +211,7 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
           console.log('Success: PDF has been uploaded');
           successUploadCount++;
           if (successUploadCount === totalFilesToBeUploaded) {    // when all files have been uploaded SUCCESSFULLy
-            this.containerApi.getCbuResults(uploadDateStr.concat('$').
+            this.containerApi.getCubResults(uploadDateStr.concat('$').
               concat(initFileName), totalFilesToBeUploaded).subscribe(
               results => {
                 console.log('results:', results);
@@ -244,7 +233,7 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
 
         this.uploaderService.onCompleteUpload = (item, response, status, headers) => {
           // complete callback, called regardless of success or failure
-          // console.log('COMPLETED: PDF upload has been completed');
+        
         };
 
         myUploadItem.forEach(oneUploadItem => {
@@ -259,6 +248,8 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
     }
   }
 
+  // setting up the DATA containing the calculation results
+  // & displaying into stacked vertical bar chart
   private setupCHART(calculationDATA): void {
     var codonNamesValues;
     calculationDATA.cbuResults.acidsResult.forEach(
@@ -286,6 +277,6 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
 
 
     //displaychart
-    this.viewMode = 1;
+    this.viewMode = 1;  //viewMode =1 [displaying chart]; viewMode=2 [cub detection page]
   }
 }

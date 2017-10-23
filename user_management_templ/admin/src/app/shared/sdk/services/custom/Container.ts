@@ -320,10 +320,10 @@ export class ContainerApi extends BaseLoopBackApi {
    *
    *  - `cbuResults` – `{object}` - 
    */
-  public getCbuResults(fileName: any = {}, totalParts: any = {}, customHeaders?: Function): Observable<any> {
+  public getCubResults(fileName: any = {}, totalParts: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/containers/getCbuResults";
+    "/containers/getCubResults";
     let _routeParams: any = {};
     let _postBody: any = {};
     let _urlParams: any = {};

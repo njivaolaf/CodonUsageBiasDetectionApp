@@ -5,13 +5,11 @@ module.exports = function (Container) {
     const fs = require('fs');
     const dnaFilesContainer = 'dnafiles';
     var wait = require('wait-for-stuff');
-    //---------------------------------------------
 
     var streamToString = function (stream, callback) {
         var str = '';
         stream.on('data', function (chunk) {
             str += chunk;
-            //          console.log('one chunk:', chunk);
         });
         stream.on('end', function () {
             callback(str);
@@ -22,7 +20,6 @@ module.exports = function (Container) {
         var str = '';
         stream.on('data', function (chunk) {
             str += chunk;
-            //          console.log('one chunk:', chunk);
         });
         stream.on('end', function () {
             callback(str);
@@ -35,9 +32,7 @@ module.exports = function (Container) {
         return 'nameworkingTEST';
     }
     Container.afterRemote('upload', function (ctx, modelInstance, cb) {
-        // if (ctx) {
-        //     console.log('ctx:', ctx)
-        // }
+
         if (modelInstance) {
 
             var medias = [];
@@ -52,19 +47,14 @@ module.exports = function (Container) {
                     dateCreated: modelInstance.result.fields.dateUploaded[0]
                 });
 
-                var myStream = Container.downloadStream(file.container, file.name);
-                streamToString(myStream, function (mystr) {
-                    //   Container.getFileName();
-                    console.log('Container.getFileName();');
-                    //   console.log('file part contents:', mystr);     // output the stream
-                });
-                console.log('out of streamToString');
-                //   stream.pipe(process.stdout);
-                //  const writable = fs.createWriteStream('./file.txt');
-                //  stream.pipe(writable);
-
-
-
+                // var myStream = Container.downloadStream(file.container, file.name);
+                // streamToString(myStream, function (mystr) {
+                //   //can get mystr here
+                // });
+                // console.log('out of streamToString');
+                // //   stream.pipe(process.stdout);
+                // //  const writable = fs.createWriteStream('./file.txt');
+                // //  stream.pipe(writable);
             }
             if (medias.length)
                 app.models.Media.create(medias, cb);
@@ -74,7 +64,7 @@ module.exports = function (Container) {
         }
     });
 
-    class cubCalculations {        //class cubCalculations
+    class cubCalculations {
         constructor() {
             this.codonsCounter = 0;
             this.acidsResult = [];
@@ -126,9 +116,6 @@ module.exports = function (Container) {
                         }
                         searchCodonCount++;
                     }
-                    // if (searchSTR == this.acidsResult[search_count].acidName) {
-
-                    // }
                     search_count++;
                 }
             }
@@ -139,18 +126,14 @@ module.exports = function (Container) {
                 for (var codonIndex in this.acidsResult[acidIndex].currentCodons) {
                     currentfraction = 0;
                     if ((this.codonsCounter > 0) && (this.acidsResult[acidIndex].currentCodons[codonIndex].codonFoundCounter > 0)) {
-                        currentfraction  =  this.acidsResult[acidIndex].currentCodons[codonIndex].codonFoundCounter / this.codonsCounter
+                        currentfraction = this.acidsResult[acidIndex].currentCodons[codonIndex].codonFoundCounter / this.codonsCounter
                         this.acidsResult[acidIndex].currentCodons[codonIndex].fraction1 = currentfraction;
                     }
-                    this.acidsResult[acidIndex].currentCodons[codonIndex].outOf1000 = currentfraction*1000;
-                    
-                    
+                    this.acidsResult[acidIndex].currentCodons[codonIndex].outOf1000 = currentfraction * 1000;
+
                 }
             }
-
-
         }
-
     }
 
 
@@ -175,7 +158,7 @@ module.exports = function (Container) {
         }
     }
 
-    Container.getCbuResults = function (fileName, totalParts, callback) {
+    Container.getCubResults = function (fileName, totalParts, callback) {
 
         var finishedStreamingObj = {};
         console.log('filename is: ', fileName);
@@ -193,20 +176,17 @@ module.exports = function (Container) {
         for (var FileCounter = 0; FileCounter < filenameList.length; FileCounter++) {
             var myStream = Container.downloadStream(dnaFilesContainer, filenameList[FileCounter]);
             streamToStringForGetFiles(myStream, function (mystr) {
-                // console.log('FILE part CONTENTS:', mystr);    
-
-
+                // mystr: content of a file part
                 if (!(FileCounter < (filenameList.length - 1))) {
                     //set calculations here
-                    finishedStreamingObj.finishedStreaming = true;
+                    finishedStreamingObj.finishedStreaming = true;  // listened by a wait.for before callback
                 } else {
 
                 }
                 var charCounter = 0;
                 var CodonTrioToSearch = '';
-                //       console.log('mystrLength:', mystr.length);
-                //       console.log('MYSTRING:',mystr);
                 var someStr = mystr;
+                // searching for each 3 characters and matching with codons in [predifined] acid objects
                 while (charCounter < someStr.length) {
                     if (char0 == '') {
                         char0 = someStr.substr(charCounter, 1);
@@ -218,7 +198,7 @@ module.exports = function (Container) {
                         char2 = someStr.substr((charCounter + 2), 1);
                     }
                     CodonTrioToSearch = CodonTrioToSearch.concat(char0).concat(char1).concat(char2);
-                    console.log('CodonTrioToSearch', CodonTrioToSearch);
+                //    console.log('CodonTrioToSearch', CodonTrioToSearch);
                     currentCalculationObj.searchCodon(CodonTrioToSearch.toUpperCase());
                     currentCalculationObj.calculateFractionANDgraphData();
                     CodonTrioToSearch = '';
@@ -231,7 +211,7 @@ module.exports = function (Container) {
 
             });
         }
-
+        //search finished
 
 
 
@@ -242,8 +222,7 @@ module.exports = function (Container) {
         console.log('out of wait until');
         var streamFinished = false;
         wait.for.value(finishedStreamingObj, 'finishedStreaming', true);
-        // currentCalculationObj.displayMsgTest();
-        callback(null, currentCalculationObj)
+        callback(null, currentCalculationObj)   // <---- sending search results to the client
 
     };
     function checkIfStreamFinished(streamFinishedVal) {
@@ -253,47 +232,14 @@ module.exports = function (Container) {
         else {
             console.log('stream is finished: val:', streamFinishedVal);
         }
-        // console.log(`arg was => ${streamFinishedVal}`);
     }
 
-
-    // function getMyFiles_and_calculate(CUB_Object, FNameList, FileCounter) {
-    //     var myStream = Container.downloadStream(dnaFilesContainer, FNameList[FileCounter]);
-    //     streamToStringForGetFiles(myStream, function (mystr) {
-    //         var someStrTest = mystr;
-    //         // console.log('FILE part CONTENTS:', mystr);    
-    //         if (FileCounter < (FNameList.length - 1)) {
-    //             FileCounter++;
-    //             getMyFiles_and_calculate(CUB_Object, FNameList, FileCounter);
-    //             CUB_Object.Thymine = 'thymine test';
-    //         }
-    //         else {
-    //             finishedStreamingObj.finishedStreaming = true;
-    //             return CUB_Object;
-    //         }
-    //     });
-    //     console.log('out of streamToString,counter='.FileCounter);
-
-    // }
-
-
-    Container.remoteMethod('getCbuResults', {
+    Container.remoteMethod('getCubResults', {
         accepts: [
             { arg: 'fileName', type: 'string' },
             { arg: 'totalParts', type: 'number' }
         ],
         returns: { arg: 'cbuResults', type: 'object' }
     })
-    // practical example
-    // Container.afterRemote('upload', function (ctx, unused, next) {
-    //     console.log('vvv: good');
-    //     var files = ctx.result.result.files.file;
-    //     console.log('vvv: FILE(S) UPLOADED: %j', files);
-    //     // TODO - process all items in `files` array
-    //     var item = files[0];
-    //     var stream = Container.downloadStream(item.container, item.name);
-    //     stream.pipe(process.stdout);
-    //     stream.on('end', function () { next(); });
-    //     stream.on('error', next);
-    // }); // works
+
 };
