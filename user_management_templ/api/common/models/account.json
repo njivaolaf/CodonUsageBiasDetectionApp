@@ -44,7 +44,6 @@
       "principalId": "$everyone",
       "permission": "DENY",
       "property": [
-        "create",
         "resetAccountPassword"
       ]
     },
@@ -62,7 +61,11 @@
       "principalType": "ROLE",
       "principalId": "$unauthenticated",
       "permission": "ALLOW",
-      "property": "resetAccountPassword"
+      "property": [
+        "resetAccountPassword",
+        "ckeckIfEmailExists",
+        "create"
+      ]
     }
   ],
   "methods": {}

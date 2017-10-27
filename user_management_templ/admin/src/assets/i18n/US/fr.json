@@ -5,7 +5,19 @@
     "password": "Mot de passe",
     "sign_in": "Connexion",
     "forget_password": "Mot de passe oublié?",
-    "back":"Continuer en tant que visiteur"
+    "back": "Continuer en tant que visiteur"
+  },
+  "registration": {
+    "signup": "Enregistrement à CUB Detection",
+    "signupWord": "S'enregistrer'",
+    "alreadyHaveAccount": "Déjà enregistré? Connectez-vous!",
+    "firstName":"Prénom",
+    "lastName":"Nom",
+    "email":"Adresse email",
+    "password":"Mot de passe",
+    
+    "passwordNotMatch":"Les mots de passe sont différents",
+    "repeat":"Confirmation du mot de passe"
   },
   "user": {
     "user": "Utilisateurs",
@@ -13,24 +25,24 @@
     "last_name": "Nom",
     "active": "Actif",
     "locked": "Bloqué",
-    "login":"Connexion",
-    "register":"S'enregistrer",
-    "user_created":"Utilisateur créé",
-    "email_exist":"l'adresse email existe déja",
-    "email_not_editable":"L'adresse email ne peut etre édité",
-    "first_name_required":"Le nom est requis",
-    "last_name_required":"Le surnom est requis",
-    "email_required":"L'email est requis",
-    "invalid_email":"Email invalide",
-    "account_not_created":"Le compte n'a pas été créé",
-    "user_saved":"L'utilisateur a été sauvegardé"
+    "login": "Connexion",
+    "register": "S'enregistrer",
+    "user_created": "Utilisateur créé",
+    "email_exist": "l'adresse email existe déja",
+    "email_not_editable": "L'adresse email ne peut etre édité",
+    "first_name_required": "Le nom est requis",
+    "last_name_required": "Le surnom est requis",
+    "email_required": "L'email est requis",
+    "invalid_email": "Email invalide",
+    "account_not_created": "Le compte n'a pas été créé",
+    "user_saved": "L'utilisateur a été sauvegardé"
   },
   "general": {
     "utm": "University of Technology,Mauritius",
     "home": "Accueil",
     "menu": {
-      "dna":"ADN",
-      "mainpage":"Main Page",
+      "dna": "ADN",
+      "mainpage": "Main Page",
       "dashboard": "Tableau de bord",
       "category": "Catégorie de projet",
       "report": "Rapport",
@@ -39,13 +51,13 @@
       "project": "Projet",
       "comment": "Commentaire",
       "like": "J'aime",
-      "gpssensor":"Capteur GPS",
-      "region":"Région",
-      "measurementstandard":"Norme de mesure",
-      "aqi":"Indice de Qualité de l'Air",
-      "road":"Route",
-      "rawdata":"Données brutes",
-      "cub":"Détection de biais d'usage du code"
+      "gpssensor": "Capteur GPS",
+      "region": "Région",
+      "measurementstandard": "Norme de mesure",
+      "aqi": "Indice de Qualité de l'Air",
+      "road": "Route",
+      "rawdata": "Données brutes",
+      "cub": "Détection de biais d'usage du code"
     },
     "header": {
       "CHANGE_LANGUAGE": "Changer la langue",
@@ -76,18 +88,17 @@
       "gpssensor_created": "Capteur GPS créé avec succès",
       "gpssensor_saved": "Capteur GPS mis à jour avec succès",
       "gpssensor_deleted": "Capteur GPS supprimé avec succès",
-
       "region_created": "Région créée avec succès",
       "region_saved": "Région mise à jour avec succès",
       "region_deleted": "Région supprimée avec succès",
       "rawdata_created": "Données brutes créée avec succès",
       "rawdata_saved": "Données brutes mise à jour avec succès",
       "rawdata_deleted": "Données brutes supprimée avec succès",
-     "rawdata":"Données brutes",
-      "region":"Région",
-      "road":"Route",
-      "aqi":"IQA",
-      "coordinates":"Coordonnées",
+      "rawdata": "Données brutes",
+      "region": "Région",
+      "road": "Route",
+      "aqi": "IQA",
+      "coordinates": "Coordonnées",
       "project_created": "Projet créée avec succès",
       "project_saved": "Projet mise à jour avec succès",
       "project_deleted": "Projet supprimée avec succès",
@@ -97,27 +108,25 @@
       "status_deleted": "Statut supprimé avec succès",
       "report_saved": "Rapport mis à jour avec succès",
       "report_deleted": "Rapport supprimé avec succès",
-
       "measurementstandard_created": "Norme de mesure créé avec succès",
       "measurementstandard_saved": "Norme de mesure mis à jour avec succès",
       "measurementstandard_deleted": "Norme de mesure supprimé avec succès",
-
       "measurementstandard": "Norme de mesure",
       "measurementstandard_name": "Norme de mesure",
       "parameter": "Paramètres",
       "OneHourAvMaxLimit": "Limite maximale moyenne d'une heure(μg/m3) ",
       "DailyAvMaxLimit": "Limite maximale moyenne quotidienne(μg/m3) ",
-      "minRange":"Gamme minimale",
-      "maxRange":"Gamme maximale",
-      "region_name":"Nom du région",
-      "aqi_created":"IQA créé avec succès",
+      "minRange": "Gamme minimale",
+      "maxRange": "Gamme maximale",
+      "region_name": "Nom du région",
+      "aqi_created": "IQA créé avec succès",
       "aqi_saved": "IQA mis à jour avec succès",
       "aqi_deleted": "IQA supprimé avec succès",
-      "minshouldbegreater":"La valeur minimale ne doit pas dépasser la valeur maximale",
+      "minshouldbegreater": "La valeur minimale ne doit pas dépasser la valeur maximale",
       "road_created": "Route créé avec succès",
       "road_saved": "Route mis à jour avec succès",
       "road_deleted": "Route supprimé avec succès",
-      "road_name":"Nom de la route",
+      "road_name": "Nom de la route",
       "category": "Catégorie",
       "description": "Description",
       "date": "Date",
@@ -125,7 +134,7 @@
       "uploads": "Uploads",
       "comment": "Commentaire",
       "like": "J'aime",
-      "like_count":"Nombre de J'aime",
+      "like_count": "Nombre de J'aime",
       "like_deleted": "'J'aime' supprimé avec succès",
       "This category has been used, cannot delete.": "Cette catégorie a été utilisée et ne peut être supprimée.",
       "Cannot delete several categories at the same time.": "Impossible de supprimer plusieurs catégories en même temps.",
@@ -149,26 +158,25 @@
   "project": {
     "title": "Projet"
   },
-  "gpssensor":{
-    "title":"Capteur GPS"
+  "gpssensor": {
+    "title": "Capteur GPS"
   },
-  "region":{
-    "title":"Région"
+  "region": {
+    "title": "Région"
   },
-  "measurementstandard":{
-    "title":"Norme de mesure"
+  "measurementstandard": {
+    "title": "Norme de mesure"
   },
-  "aqi":{
-    "title":"IQA"
+  "aqi": {
+    "title": "IQA"
   },
-  "road":{
-    "title":"Route"
+  "road": {
+    "title": "Route"
   },
-  "rawdata":{
-    "title":"Raw Data",
-    "export_pdf":"Exporter en PDF",
-    "export_csv":"Exporter en CSV",
-    "import_excel":"Importer un excel"
+  "rawdata": {
+    "title": "Raw Data",
+    "export_pdf": "Exporter en PDF",
+    "export_csv": "Exporter en CSV",
+    "import_excel": "Importer un excel"
   }
-  
 }

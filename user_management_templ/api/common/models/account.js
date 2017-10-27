@@ -149,6 +149,16 @@ module.exports = function (Account) {
         }
     });
 
+    Account.ckeckIfEmailExists = function (email, cb) {
+        Account.findOne({
+            where: { email: email }
+        }, function (err, account) {
+            if (err || !account) return cb(err,false);
+            else cb(err,true);
+        });
+    }
+
+
     Account.resetAccountPassword = function (email, next) {
         Account.findOne({
             where: { email: email }
@@ -189,6 +199,10 @@ module.exports = function (Account) {
         accepts: { arg: 'email', type: 'string', required: true },
         returns: { type: 'any', root: true }
     });
+    Account.remoteMethod('ckeckIfEmailExists', {
+        accepts: { arg: 'email', type: 'string', required: true },
+        returns: { type: 'Boolean', root: true }
+    });
 
     Account.on('sendEmail', function (info) {
         app.models.Email.send({
@@ -197,7 +211,7 @@ module.exports = function (Account) {
             sender: 'njivaolaf@gmail.com',
             subject: info.subject,
             html: info.message
-        }, function (err) { 
+        }, function (err) {
             if (err) return console.log('> error sending email:', err);
             console.log('> sending email to:', info.to);
         });
@@ -248,4 +262,7 @@ module.exports = function (Account) {
             });
         });
     }
+
+
+
 };

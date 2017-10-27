@@ -236,8 +236,8 @@ module.exports = function (Backenduser) {
         if (mode == CREATE) {
             message = {
                 to: _to,
-                from: '"Mobile No-Reply" <mobile-noreply@govmu.org>',
-                sender: 'mobile-noreply@govmu.org',
+                from: '"CUB Detection" <njivaolaf@gmail.com>',
+                sender: 'njivaolaf@gmail.com',
                 subject: _messageTitle,
                 html: _messageDetail
             }

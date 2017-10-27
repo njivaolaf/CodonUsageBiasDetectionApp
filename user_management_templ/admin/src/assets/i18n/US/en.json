@@ -5,7 +5,19 @@
     "password": "Password",
     "sign_in": "Sign in",
     "forget_password": "Forget password?",
-    "back":"Continue as Guest"
+    "back": "Continue as Guest"
+  },
+  "registration":{
+    "signup": "Sign up to CUB Detection",
+    "signupWord": "Sign Up",
+    "alreadyHaveAccount":"Already have a UserManagementTemplate account? Sign in!",
+    "firstName":"First name",
+    "lastName":"Last name",
+    "email":"Email",
+    "password":"Password",
+    
+    "passwordNotMatch":"Passwords don't match",
+    "repeat":"Password Confirmation"
   },
   "user": {
     "user": "Users",
@@ -13,23 +25,23 @@
     "last_name": "Last name",
     "active": "Active",
     "locked": "Locked",
-    "user_created":"The user has been successfully created.",
-    "email_exist":"The email already exists",
-    "login":"Login",
-    "register":"Register",
-    "email_not_editable":"The email cannot be edited",
-    "first_name_required":"First name is required",
-    "last_name_required":"Last name is required",
-    "email_required":"Email is required",
-    "invalid_email":"Email is invalid",
-    "account_not_created":"The account has not been created",
-    "user_saved":"The user has been saved"
+    "user_created": "The user has been successfully created.",
+    "email_exist": "The email already exists",
+    "login": "Login",
+    "register": "Register",
+    "email_not_editable": "The email cannot be edited",
+    "first_name_required": "First name is required",
+    "last_name_required": "Last name is required",
+    "email_required": "Email is required",
+    "invalid_email": "Email is invalid",
+    "account_not_created": "The account has not been created",
+    "user_saved": "The user has been saved"
   },
   "general": {
     "utm": "University of Technology,Mauritius ",
     "home": "Home",
     "menu": {
-      "mainpage":"Main Page",
+      "mainpage": "Main Page",
       "dashboard": "Dashboard",
       "category": "Project Category",
       "report": "Report",
@@ -41,11 +53,11 @@
       "gpssensor": "GPS Sensor",
       "region": "Region",
       "measurementstandard": "Measurement standard",
-      "aqi":"Air Quality Index",
-      "road":"Road",
-      "rawdata":"Raw Data",
-      "cub":"CUB Detection",
-      "dna":"DNA"
+      "aqi": "Air Quality Index",
+      "road": "Road",
+      "rawdata": "Raw Data",
+      "cub": "CUB Detection",
+      "dna": "DNA"
     },
     "header": {
       "CHANGE_LANGUAGE": "Change language",
@@ -67,7 +79,7 @@
       "Error": "Error",
       "name_required": "Name is required",
       "name_exist": "Name already exist",
-      "sequencename":"Sequence name",
+      "sequencename": "Sequence name",
       "sequencename_required": "Name is required",
       "sequencename_exist": "Name already exist",
       "color_required": "Color is required",
@@ -101,14 +113,14 @@
       "parameter": "Parameters",
       "OneHourAvMaxLimit": "One hour average max limit(μg/m3) ",
       "DailyAvMaxLimit": "Daily average max limit(μg/m3) ",
-      "aqi":"AQI",
-      "aqi_created":"AQI created successfully",
+      "aqi": "AQI",
+      "aqi_created": "AQI created successfully",
       "aqi_saved": "AQI updated successfully",
       "aqi_deleted": "AQI deleted successfully",
-      "minRange":"Minimum Range",
-      "maxRange":"Maximum Range",
-      "minshouldbegreater":"Minimum Range should not be greater than Maximum Range",
-      "road":"Road",
+      "minRange": "Minimum Range",
+      "maxRange": "Maximum Range",
+      "minshouldbegreater": "Minimum Range should not be greater than Maximum Range",
+      "road": "Road",
       "road_name": "Road name",
       "road_created": "Road created successfully",
       "road_saved": "Road updated successfully",
@@ -116,8 +128,7 @@
       "rawdata_created": "Raw data created successfully",
       "rawdata_saved": "Raw data updated successfully",
       "rawdata_deleted": "Raw data deleted successfully",
-     "rawdata":"Raw data",
-
+      "rawdata": "Raw data",
       "picture": "Picture",
       "category": "Category",
       "description": "Description",
@@ -159,17 +170,16 @@
   "measurementstandard": {
     "title": "Measurement Standard"
   },
-  "aqi":{
-    "title":"AQI"
+  "aqi": {
+    "title": "AQI"
   },
-  
-  "road":{
-    "title":"Road"
+  "road": {
+    "title": "Road"
   },
-  "rawdata":{
-    "title":"Raw Data",
-    "export_pdf":"Export to PDF",
-    "export_csv":"Export to CSV",
-    "import_excel":"Import from excel"
+  "rawdata": {
+    "title": "Raw Data",
+    "export_pdf": "Export to PDF",
+    "export_csv": "Export to CSV",
+    "import_excel": "Import from excel"
   }
 }

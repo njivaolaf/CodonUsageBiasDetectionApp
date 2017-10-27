@@ -1,16 +1,17 @@
-import { NgModule }      from '@angular/core';
-import { CommonModule }  from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgaModule } from '../../theme/nga.module';
 
+import { AppTranslationModule } from '../../app.translation.module';
 import { Register } from './register.component';
-import { routing }       from './register.routing';
+import { routing } from './register.routing';
 
 
 @NgModule({
   imports: [
     CommonModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule, AppTranslationModule,
     FormsModule,
     NgaModule,
     routing
@@ -19,4 +20,4 @@ import { routing }       from './register.routing';
     Register
   ]
 })
-export class RegisterModule {}
+export class RegisterModule { }
