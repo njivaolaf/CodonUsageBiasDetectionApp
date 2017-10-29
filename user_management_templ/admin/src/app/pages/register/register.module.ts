@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgaModule } from '../../theme/nga.module';
 
+
+import { SharedModule } from '../../shared/shared.module';
+
 import { AppTranslationModule } from '../../app.translation.module';
 import { Register } from './register.component';
 import { routing } from './register.routing';
@@ -14,7 +17,8 @@ import { routing } from './register.routing';
     ReactiveFormsModule, AppTranslationModule,
     FormsModule,
     NgaModule,
-    routing
+    routing,SharedModule
+    
   ],
   declarations: [
     Register

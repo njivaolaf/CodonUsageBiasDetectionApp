@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { EmailValidator, EqualPasswordsValidator } from '../../theme/validators';
 
-import { NotificationsService } from 'angular2-notifications';
 
+import { NotificationsService } from 'angular2-notifications';
+import { TranslateService } from '@ngx-translate/core';
 import { AccountApi } from '../../shared/sdk/services';
 import { AuthService } from '../../auth.service';
 import { Account, LoopBackFilter } from '../../shared/sdk/models';
 import { Router, NavigationExtras } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'register',
   templateUrl: './register.html',
@@ -26,7 +26,12 @@ export class Register {
   public password: AbstractControl;
   public repeatPassword: AbstractControl;
   public passwords: FormGroup;
-
+  options = {
+    timeOut: 3000,
+    showProgressBar: false,
+    lastOnBottom: false,
+    animate: 'fromLeft'
+  };
   public submitted: boolean = false;
 
   constructor(fb: FormBuilder,
@@ -78,8 +83,6 @@ export class Register {
       trans => {
         this.trans = trans;
 
-        this.notificationsService.success(this.trans['general.common.status'],
-        this.trans['user.user_created']);
       });
   }
 
@@ -102,10 +105,8 @@ export class Register {
 
           if (foundEmailBool) {
 
-            this.notificationsService.alert('error',
-            'error');
-            // this.notificationsService.error(this.trans['general.common.error'],
-            //   this.trans['user.email_exist']);
+            this.notificationsService.error(this.trans['general.common.error'],
+              this.trans['user.email_exist']);
           } else {
             this.createUser(newAccount);
           }
@@ -117,10 +118,6 @@ export class Register {
           }
         }
       );
-
-
-      // your code goes here
-      // console.log(values);
     }
   }
 
@@ -141,7 +138,7 @@ export class Register {
     );
   }
 
-  private ReturnNow():void{
+  private ReturnNow(): void {
     this.deactivateRoute();
   }
 

@@ -172,7 +172,7 @@ module.exports = function (Container) {
         var char0 = '';
         var char1 = '';
         var char2 = '';
-        //---
+        //---to refactor
         for (var FileCounter = 0; FileCounter < filenameList.length; FileCounter++) {
             var myStream = Container.downloadStream(dnaFilesContainer, filenameList[FileCounter]);
             streamToStringForGetFiles(myStream, function (mystr) {
