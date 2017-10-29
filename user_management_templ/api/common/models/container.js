@@ -176,7 +176,11 @@ module.exports = function (Container) {
         for (var FileCounter = 0; FileCounter < filenameList.length; FileCounter++) {
             var myStream = Container.downloadStream(dnaFilesContainer, filenameList[FileCounter]);
             streamToStringForGetFiles(myStream, function (mystr) {
-                // mystr: content of a file part
+                console.log('new file now, chart remainings---');
+                
+                console.log('CHART0---', char0);
+                console.log('CHART1---', char1);
+                console.log('CHART2---', char2);
                 if (!(FileCounter < (filenameList.length - 1))) {
                     //set calculations here
                     finishedStreamingObj.finishedStreaming = true;  // listened by a wait.for before callback
@@ -188,40 +192,45 @@ module.exports = function (Container) {
                 var someStr = mystr;
                 // searching for each 3 characters and matching with codons in [predifined] acid objects
                 while (charCounter < someStr.length) {
-                    if (char0 == '') {
-                        char0 = someStr.substr(charCounter, 1);
+                    switch ('') {
+                        case (char0):
+                            char0 = someStr.substr(charCounter, 1);
+                            break;
+                        case (char1):
+                            char1 = someStr.substr(charCounter, 1);
+                            break;
+                        case (char2):
+                            char2 = someStr.substr(charCounter, 1);
+                            break;
                     }
-                    if ((char1 == '') && (charCounter + 1 < someStr.length)) {
-                        char1 = someStr.substr((charCounter + 1), 1);
+                    if ((char0 != '') && (char1 != '') && (char2 != '')) {  //if all 3 chars are not empty
+                        CodonTrioToSearch = CodonTrioToSearch.concat(char0).concat(char1).concat(char2);
+                        currentCalculationObj.searchCodon(CodonTrioToSearch.toUpperCase());
+                        CodonTrioToSearch = '';
+                        char0 = '';
+                        char1 = '';
+                        char2 = '';
                     }
-                    if ((char2 == '') && (charCounter + 2 < someStr.length)) {
-                        char2 = someStr.substr((charCounter + 2), 1);
-                    }
-                    CodonTrioToSearch = CodonTrioToSearch.concat(char0).concat(char1).concat(char2);
-                //    console.log('CodonTrioToSearch', CodonTrioToSearch);
-                    currentCalculationObj.searchCodon(CodonTrioToSearch.toUpperCase());
-                    currentCalculationObj.calculateFractionANDgraphData();
-                    CodonTrioToSearch = '';
-
-                    char0 = '';
-                    char1 = '';
-                    char2 = '';
-                    charCounter += 3;
+                    charCounter++;
                 }
-
+                finishedStreamingObj.finishedStreamingOne = true;   // set after each file streaming
             });
+
+            wait.for.value(finishedStreamingObj, 'finishedStreamingOne', true);
+            finishedStreamingObj.finishedStreamingOne = false;
+            console.log('all streams end');
         }
         //search finished
 
 
 
 
-        console.log('filenameList:', filenameList);
+        console.log('INFO: filenameList:', filenameList);
         var sometest = false;
 
-        console.log('out of wait until');
         var streamFinished = false;
         wait.for.value(finishedStreamingObj, 'finishedStreaming', true);
+        currentCalculationObj.calculateFractionANDgraphData();
         callback(null, currentCalculationObj)   // <---- sending search results to the client
 
     };

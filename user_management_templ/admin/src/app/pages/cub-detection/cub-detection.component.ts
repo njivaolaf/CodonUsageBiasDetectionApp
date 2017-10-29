@@ -2,10 +2,8 @@ import { Component, OnInit, OnDestroy, ViewChild, EventEmitter, Input, Output } 
 import { Router, Routes } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
-
 import { NotificationsService } from 'angular2-notifications';
 import { Pages } from '../pages.component';
-
 import { LoopBackAuth } from './../../shared/sdk/services/core/auth.service';
 import { ADMIN_PAGES_MENU, PAGES_MENU, GUEST_PAGES_MENU } from '../pages.menu';
 import { BaMenuService } from '../../theme';
@@ -13,14 +11,10 @@ import { AuthService, User } from '../../auth.service';
 import { Container, ContainerApi } from '../../shared/sdk';
 import { environment } from '../../../environments/environment';
 import { Dna, DnaApi, LoopBackFilter, LoopBackConfig } from '../../shared/sdk';
-
 import { Uploader } from 'angular2-http-file-upload';
 import { MyUploadItem } from '../my-upload-item';
-
-
 import { ChartistJsService } from './chartistJs.service';
-import { NgxChartsModule } from '@swimlane/ngx-charts';   // ngx chart
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 export class DropDownDNAValue {
   value: string;
@@ -30,8 +24,6 @@ export class DropDownDNAValue {
     this.label = label;
   }
 }
-
-// import { Observable } from '../../../../node_modules/rxjs/src/Observable';
 @Component({
   selector: 'cub-detection',
   templateUrl: './cub-detection.html',
@@ -122,6 +114,8 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
     this.calculateCUB(dnaTextBoxValue, 1);
   }
   clearClicked() {
+    var dnaTextBox = <HTMLInputElement>window.document.getElementById('dnaseqInput');
+    dnaTextBox.value = '';
     console.log('clearing..');
   }
   loadDnaListFromDB(): boolean {
