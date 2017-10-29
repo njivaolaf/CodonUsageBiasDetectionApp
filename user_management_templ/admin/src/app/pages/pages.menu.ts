@@ -31,10 +31,10 @@ export const ADMIN_PAGES_MENU = [
     ],
   },
   {
-    path: 'mainpage',
+    path: 'home',
     data: {
       menu: {
-        title: 'general.menu.mainpage',
+        title: 'general.menu.home',
         icon: 'ion-home',
         selected: false,
         expanded: false,
@@ -58,10 +58,10 @@ export const ADMIN_PAGES_MENU = [
 
 export const GUEST_PAGES_MENU = [
  {
-    path: 'mainpage',
+    path: 'home',
     data: {
       menu: {
-        title: 'general.menu.mainpage',
+        title: 'general.menu.home',
         icon: 'ion-home',
         selected: false,
         expanded: false,
@@ -104,10 +104,10 @@ export const PAGES_MENU = [
     ],
   },
   {
-    path: 'mainpage',
+    path: 'home',
     data: {
       menu: {
-        title: 'general.menu.mainpage',
+        title: 'general.menu.home',
         icon: 'ion-home',
         selected: false,
         expanded: false,

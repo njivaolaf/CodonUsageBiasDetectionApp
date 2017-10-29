@@ -263,7 +263,7 @@ export class UserComponent implements OnInit {
         preserveFragment: true
       } as NavigationExtras);
     } else {
-      this.router.navigate(['mainpage']);
+      this.router.navigate(['home']);
     }
   }
 }

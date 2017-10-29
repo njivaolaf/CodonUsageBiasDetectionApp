@@ -30,7 +30,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, OnInit {
     //  guest users can navigate to these link 
     //  Pages to be viewed by GUESTS(not logged users) should be added here
     this.linkExceptionsforGuest = [
-      '/mainpage',
+      '/home',
       '/cub-detection',
     ];
   }

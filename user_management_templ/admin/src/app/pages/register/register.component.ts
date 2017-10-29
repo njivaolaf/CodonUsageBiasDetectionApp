@@ -149,7 +149,7 @@ export class Register {
         preserveFragment: true
       } as NavigationExtras);
     } else {
-      this.router.navigate(['/mainpage']);
+      this.router.navigate(['/home']);
     }
   }
 }

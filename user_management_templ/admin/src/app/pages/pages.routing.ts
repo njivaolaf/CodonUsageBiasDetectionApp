@@ -37,7 +37,7 @@ export const routes: Routes = [
       },
     ],
   },
-  { path: '', redirectTo: 'mainpage', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'change-password',
     loadChildren: 'app/pages/change-password/change-password.module#ChangePasswordModule',
@@ -49,10 +49,10 @@ export const routes: Routes = [
     loadChildren: 'app/pages/cub-detection/cub-detection.module#CubDetectionModule',
   },
   {
-    path: 'mainpage',
+    path: 'home',
     component: Pages,
     canActivate: [AuthGuard],
-    loadChildren: 'app/pages/mainpage/mainpage.module#MainPageModule',
+    loadChildren: 'app/pages/home/home.module#HomeModule',
   },
 ];
 

@@ -73,7 +73,7 @@ export class Login {
             this.router.navigate([this.authService.redirectUrl], navigationExtras);
             return;
           }
-          this.router.navigate(['/mainpage']);
+          this.router.navigate(['/home']);
         },
         err => {
           if (err && err.message) {
@@ -134,7 +134,7 @@ export class Login {
         preserveFragment: true
       } as NavigationExtras);
     } else {
-      this.router.navigate(['/mainpage']);
+      this.router.navigate(['/home']);
     }
   }
 }

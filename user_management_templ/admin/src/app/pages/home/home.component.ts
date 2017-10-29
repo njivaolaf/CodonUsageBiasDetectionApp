@@ -22,11 +22,11 @@ import {
 import { CustomValidations } from '../../shared/customValidation/customValidation';
 
 @Component({
-  selector: 'mainpage',
-  templateUrl: './mainpage.component.html',
-  styleUrls: ['./mainpage.component.scss'],
+  selector: 'home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
 })
-export class MainPageComponent implements OnInit {
+export class HomeComponent implements OnInit {
   
   
   checkboxModel: boolean[] =[];

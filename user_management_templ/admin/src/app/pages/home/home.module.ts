@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { NgaModule } from '../../theme/nga.module';
-import { MainPageComponent } from './mainpage.component';
-import { routing } from './mainpage.routing';
+import { HomeComponent } from './home.component';
+import { routing } from './home.routing';
 import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
@@ -17,6 +17,6 @@ import { SharedModule } from '../../shared/shared.module';
     Ng2SmartTableModule,
     SharedModule
   ],
-  declarations: [MainPageComponent],
+  declarations: [HomeComponent],
 })
-export class MainPageModule { }
+export class HomeModule { }
