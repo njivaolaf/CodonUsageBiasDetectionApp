@@ -7,15 +7,34 @@
             Title:
           </td>
           <td>
-            <h3> {{currentDna.sequencename}} </h3>
+            <div class="form-group">
+              <input type="text" class="form-control" [(ngModel)]="currentDna.sequencename" id="sequenceNameInput" name="sequenceNameInput"
+                placeholder="Sequence name">
+            </div>
             <!-- <input name="projecttitleinput" [(ngModel)]="currentDna.tradername" class="text-input" type="text" style="width: 100%;" placeholder="Enter news title"
             /> -->
             <!-- <textarea   [(ngModel)]="currentDna.description" name="projectName" style="width: 100%;" readonly></textarea>  -->
 
           </td>
         </tr>
-        
-<!--      
+        <tr>
+          <td class="tablelabel">
+              Upload:
+          </td>
+          <td>
+            <div class="form-group">
+              <!-- <button (click)="importFromTextClicked()" class="btn">Import from file(.txt)</button>
+                   -->
+              <input name="newsfileuploadbox" type="file" id="fileuploadbox" class="upload" #fileuploadbox (change)="importFromTextClicked($event)"
+              />
+              max size limit = {{maxFileUploadSize}} bytes
+
+
+
+            </div>
+          </td>
+        </tr>
+        <!--    
         <tr>
           <td class="tablelabel">
             Sequence:
@@ -24,13 +43,13 @@
              <textarea [(ngModel)]="currentDna.sequencename" name="dnasequence" style="width: 100%;" ></textarea> 
           </td>
         </tr> -->
-      
-      
+
+
       </tbody>
     </table>
     <div class="buttonContainer" align="center" *ngIf="saveInProgress === false">
       <input type="button" value="SAVE" (click)="onSaveClicked()" />
-     
+
       <input type="button" value="CANCEL" (click)="onCancelClicked()" />
     </div>
     <div align="center" class="buttonContainer" *ngIf="saveInProgress === true">

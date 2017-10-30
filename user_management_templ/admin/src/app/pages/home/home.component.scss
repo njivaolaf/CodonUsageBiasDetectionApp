@@ -81,8 +81,19 @@
     }
   }
 }*/
+
+
+// .img-wrapper{
+ 
+//   border: 1px solid black
+  
+// }
 h4,h1{
   color: white;
+}
+h3{
+  color: black;
+  font-family: "Comic Sans MS", cursive, sans-serif;
 }
 :host /deep/ .widgets {
   .smart-table-container {
@@ -191,9 +202,6 @@ h4,h1{
 
   }
 
-    h3 {
-      color:#163174;
-    }
 
 }
 

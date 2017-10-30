@@ -68,6 +68,8 @@
       "SIGN_OUT": "Se déconnecter"
     },
     "common": {
+      
+      "sequencename": "Nom du séquence",
       "actions": "Actions",
       "No_data_found": "Aucune donnée trouvée",
       "name": "Nom",
@@ -178,5 +180,28 @@
     "export_pdf": "Exporter en PDF",
     "export_csv": "Exporter en CSV",
     "import_excel": "Importer un excel"
+  },
+  "home":{
+    "welcome":"Bienvenue à CUB Detection",
+    "seeTuto":"Tutoriel ci-dessous...",
+    "whatCodon":"Qu'est-ce qu'un 'code'?",
+    "aSequenceOf":"Une séquence de",
+    "three":"trois",
+    "nucleotidesETC":"nucléotides qui forment ensemble une unité de code génétique dans une molécule d'ADN ou d'ARN.",
+    "aboveFigCodon":"Ci-dessus est une figure montrant les différents codons existants et leurs acides aminés respectifs",
+    "purposeApp":"Alors, quel est le but de cette application?",
+    "cubCalculation":"Calcul du biais d'utilisation du codon",
+    "chooseListDB":" Choisissez parmi la liste d'adn dans nos bases de données ou entrez vos propres séquences pour calculer le biais d'utilisation de codon.",
+    "learnMore":"Apprendre encore plus",
+    "1billion":"Jusqu'à 1 milliard de caractères ...",
+    "compared500":"Par rapport à la plupart des applications (500 000 caractères), vous pouvez traiter jusqu'à 1.073.741.824 caractères de séquence (",
+    "gb1":"1 Gibabyte",
+    "evenMore":") et même plus si vous êtes abonné.",
+    "bChart":"Un graphique à barres comme résultat",
+    "thx":"Grâce au",
+    "ngxCharts":"ngx-charts",
+    "userFriendly":", nous avons été en mesure de fournir un résultat convivial en utilisant des graphiques à barres empilés."
+
+    
   }
 }

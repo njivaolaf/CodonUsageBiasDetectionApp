@@ -93,11 +93,7 @@ export class DnaComponent implements OnInit {
     this.dnaApi.find<Dna>().subscribe(
       data => {
         this.existingDnaList = data;
-
-        this.source.setPaging(10, 2);
         this.source.load(data);
-     //   this.source.setPage
-        console.log('PAGING:', this.source.getPaging());
       },
       err => { if (err && err.message) this.notificationsService.error(err.name, err.message); }
     );

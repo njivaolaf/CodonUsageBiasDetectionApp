@@ -29,7 +29,6 @@ export class DnaEditorComponent implements OnInit {
   customValidations: CustomValidations = new CustomValidations();
 
   currentDna: Dna;
-
   ADD_MODE: number = 1;
   EDIT_MODE: number = 2;
   currentMode: number = 1;
@@ -75,8 +74,9 @@ export class DnaEditorComponent implements OnInit {
       trans => {
         this.trans = trans;
       });
+      
     this.loadDna();
-
+    
   }
 
   OnDestroy(): void {
@@ -94,6 +94,7 @@ export class DnaEditorComponent implements OnInit {
       };
       this.dnaApi.findById<Dna>(this.selectedDnaId, loopbackFilter).subscribe(
         (_currentDna) => {
+          
           this.currentDna = _currentDna;
         },
         err => {

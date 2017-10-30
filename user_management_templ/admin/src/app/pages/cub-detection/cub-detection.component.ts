@@ -31,7 +31,7 @@ export class DropDownDNAValue {
   providers: [Pages, Uploader, ChartistJsService],
 })
 export class CubDetectionComponent implements OnInit, OnDestroy {
-  private maxFileUploadSize: number = 1000000; // ~ 1GB
+  private maxFileUploadSize: number = 1073741824; // ~ 1GB
   serverLocation: string = LoopBackConfig.getPath();
   private selectedFile: File = null;
   private pdfContainer: string = 'dnafiles';  // name of the folder in the API
@@ -74,7 +74,26 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
     private notificationsService: NotificationsService,
 
   ) {
+    const isLoggedIn = this.authService.isLoggedIn();
+    if (typeof isLoggedIn === 'boolean') {
+      if (!isLoggedIn) {
+        this.maxFileUploadSize = 1073741824;
+      }
+    } else {
+      isLoggedIn.subscribe(
+        response => {
+          if (response.status === 200) {
+            this.authService.setUser(response.json() as User);
+            const currentUser = this.authService.getUser();
+            if (currentUser)
 
+              this.maxFileUploadSize = 10737418240; // 10GB
+          } else
+          this.maxFileUploadSize = 1073741824;
+        },
+        error => console.log(error)
+      );
+    }
   }
   ngOnInit(): void {
     this.updateRoute();
@@ -82,6 +101,10 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
   }
 
   loadDna(): void { // and put into combobox
+    let loopbackFilter: LoopBackFilter;
+    loopbackFilter = {
+      where: { deleted: false },
+    };
     this.dnaApi.find<Dna>().subscribe(
       data => {
         this.existingDnaList = data;
@@ -162,7 +185,7 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
       } else {
         var fileInArray = [event];
         var selectedFileBLOB = new Blob(fileInArray);
-        this.selectedFile = this.blobToFile(selectedFileBLOB, initFileName.slice(0, -4) );
+        this.selectedFile = this.blobToFile(selectedFileBLOB, initFileName.slice(0, -4));
       }
       initFileName = initFileName.slice(0, -4);
       this.xAxisLabel = initFileName; //change CHART's x label to FILENAME
@@ -270,6 +293,9 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
     this.calculateCUB(event, 0);
   }
 
+  calculateBrowseClicked() {
+    console.log('calculateBrowseClicked');
+  }
   // setting up the DATA containing the calculation results
   // & displaying into stacked vertical bar chart
   private setupCHART(calculationDATA): void {

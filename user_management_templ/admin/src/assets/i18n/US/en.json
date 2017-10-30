@@ -181,5 +181,28 @@
     "export_pdf": "Export to PDF",
     "export_csv": "Export to CSV",
     "import_excel": "Import from excel"
+  },
+  "home":{
+    "welcome":"Welcome to CUB Detection",
+    "seeTuto":"See below for a tutorial...",
+    "whatCodon":"What is a 'codon'?",
+    "aSequenceOf":"A sequence of",
+    "three":"three",
+    "nucleotidesETC":"nucleotides which together form a unit of genetic code in a DNA or RNA molecule.",
+    "aboveFigCodon":"Above is a figure showing the different existing codons and their respective amino acids",
+    "purposeApp":"So what is the purpose of this application?",
+    "cubCalculation":"Codon Usage Bias calculation",
+    "chooseListDB":"Choose from the dna list in our databases or input your own sequences to calculate the Codon Usage Bias.",
+    "learnMore":"Learn more",
+    "1billion":"Up to 1billion character...",
+    "compared500":"Compared to most apps (500,000 characters), You can process up to 1.073.741.824 sequence characters (",
+    "gb1":"1 Gibabyte",
+    "evenMore":") and even more if you are subscribed.",
+    "bChart":"A bar chart as result",
+    "thx":"Thanks to ",
+    "ngxCharts":"ngx-charts",
+    "userFriendly":", we have been able to provide a user friendly output using stacked bar charts."
+
+    
   }
 }

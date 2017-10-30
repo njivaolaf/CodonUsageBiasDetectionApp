@@ -1,59 +1,63 @@
 <div class="auth-main" *ngIf="!isError">
 
-      <form *ngIf="viewMode==0">
+  <form *ngIf="viewMode==0">
 
-        <div class="form-group">
-          <textarea placeholder="example: atctccaaaagct..." class="form-control" id="dnaseqInput"></textarea>
-        </div>
-        <div class="form-group">
-          <button (click)="clearClicked()" class="btn">Clear</button>
-          <!-- <button (click)="importFromTextClicked()" class="btn">Import from file(.txt)</button>
+    <div class="form-group">
+    <span>Option 1 [Input your sequence]:</span> <textarea placeholder="example: atctccaaaagct..." class="form-control" id="dnaseqInput"></textarea>
+    </div>
+    <div class="form-group">
+      <button (click)="calculateClicked()" class="btn btn-primary">Calculate</button>
+
+      <button (click)="clearClicked()" class="btn">Clear</button>
+    </div>
+    <div class="form-group">
+      <!-- <button (click)="importFromTextClicked()" class="btn">Import from file(.txt)</button>
          -->
-          <input name="newsfileuploadbox" type="file" id="fileuploadbox" class="btn" #fileuploadbox (change)="importFromTextClicked($event)"
-          />
+         <p><span>Option 2 [Upload your sequence]:</span></p> <input name="newsfileuploadbox" type="file" id="fileuploadbox" class="btn" #fileuploadbox (change)="importFromTextClicked($event)"
+      /> <span>max size limit = {{maxFileUploadSize}} bytes</span>
 
 
 
-        </div>
-        <div class="form-group">
-          <select *ngIf="existingDnaList" class="form-control" id="comboBoxDna" name="cbBoxDna" [(ngModel)]="selectedDnaSeqID">
-            <option *ngFor="let aDna of existingDnaList; let dnaIndex=index" [ngValue]="aDna.id">{{aDna.sequencename}}</option>
+    </div>
+    <div class="form-group">
+        <span>Option 3 [Browse through our sequences] :</span> <select *ngIf="existingDnaList" class="form-control" id="comboBoxDna" name="cbBoxDna" [(ngModel)]="selectedDnaSeqID">
+        <option *ngFor="let aDna of existingDnaList; let dnaIndex=index" [ngValue]="aDna.id">{{aDna.sequencename}}</option>
 
-          </select>
-        </div>
-        <div>
-          test: {{selectedDnaSeqID}}
-        </div>
-        <div>
-          <h4>Choose your sequence format:</h4>
-        </div>
-        <div class="input-demo radio-demo row">
-          <div class="col-md-4">
-            <label class="radio-inline custom-radio nowrap">
-              <input type="radio" name="BareRadio" id="fastaRadio" value="fasta">
-              <span style="color:aliceblue">Fasta</span>
-            </label>
-          </div>
-          <div class="col-md-4">
-            <label class="radio-inline custom-radio nowrap">
-              <input type="radio" name="BareRadio" id="BareRadio" value="bare">
-              <span style="color:aliceblue">Bare</span>
-            </label>
-          </div>
+      </select>
+      
+    </div>
 
-        </div>
-        <div class="form-group">
-          <button (click)="calculateClicked()" class="btn btn-primary">Calculate</button>
-        </div>
-      </form>
-
-      <div id="graphCub" *ngIf="viewMode==1">
-        <ngx-charts-bar-vertical-stacked [view]="view" [scheme]="colorScheme" [results]="graphDATA" [gradient]="gradient" [xAxis]="showXAxis"
-          [yAxis]="showYAxis" [animations]=f alse [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-          [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
-        </ngx-charts-bar-vertical-stacked>
-
-
+    <div>
+        <button (click)="calculateBrowseClicked()" class="btn btn-primary">Calculate</button>
+        
+      test: {{selectedDnaSeqID}}
+    </div>
+    
+    <!-- <div class="input-demo radio-demo row">
+      <div class="col-md-4">
+        <label class="radio-inline custom-radio nowrap">
+          <input type="radio" name="BareRadio" id="fastaRadio" value="fasta">
+          <span style="color:aliceblue">Fasta</span>
+        </label>
       </div>
+      <div class="col-md-4">
+        <label class="radio-inline custom-radio nowrap">
+          <input type="radio" name="BareRadio" id="BareRadio" value="bare">
+          <span style="color:aliceblue">Bare</span>
+        </label>
+      </div>
+
+    </div> -->
+
+  </form>
+
+  <div id="graphCub" *ngIf="viewMode==1">
+    <ngx-charts-bar-vertical-stacked [view]="view" [scheme]="colorScheme" [results]="graphDATA" [gradient]="gradient" [xAxis]="showXAxis"
+      [yAxis]="showYAxis" [animations]=f alse [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+    </ngx-charts-bar-vertical-stacked>
+
+
+  </div>
 
 </div>

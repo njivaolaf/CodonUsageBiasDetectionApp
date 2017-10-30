@@ -1,4 +1,14 @@
 // Date picker Host css
+
+.form-group{
+    color: white;
+}
+.upload {
+    line-height: 1.5 !important;
+    color: #163174;
+    border-color: #163174;
+    background: transparent !important;
+  }
 :host .input-group {
     margin: auto;
     width: 100%;
@@ -49,13 +59,13 @@ table.form-table {
     td.tablelabel {
         vertical-align: top;
         max-width: 50px;
-        color: #163174;
+        color: #e8e8e9;
         text-transform: uppercase;
         font-weight: bold;
         font-size: 12px;
     }
     input.text-input {
-        color: #163174;
+        color: #e8e8e9;
         border: 1px solid #163174;
         border-radius: 2px;
         -webkit-border-radius: 2px;
@@ -81,7 +91,7 @@ table.form-table {
         color: #163174;
     }
     textarea {
-        color: #163174;
+        color: #e8e8e9;
         border: 1px solid #163174;
         border-radius: 2px;
         -webkit-border-radius: 2px;
@@ -93,7 +103,7 @@ table.form-table {
         height: auto;
     }
     input {
-        color: #163174;
+        color: #e8e8e9;
     }
     img {
         height: 100px;
