@@ -3,13 +3,12 @@
     <table class="form-table" style="width: 100%;">
       <tbody *ngIf="currentDna" name="currentDnaTest">
         <tr>
-          <td class="tablelabel">
-            Title:
+          <td class="tablelabel" translate>
+            {{'general.common.sequencename'}}
           </td>
           <td>
             <div class="form-group">
-              <input type="text" class="form-control" [(ngModel)]="currentDna.sequencename" id="sequenceNameInput" name="sequenceNameInput"
-                placeholder="Sequence name">
+              <input type="text" class="form-control" [(ngModel)]="currentDna.sequencename" id="sequenceNameInput" name="sequenceNameInput">
             </div>
             <!-- <input name="projecttitleinput" [(ngModel)]="currentDna.tradername" class="text-input" type="text" style="width: 100%;" placeholder="Enter news title"
             /> -->
@@ -19,15 +18,14 @@
         </tr>
         <tr>
           <td class="tablelabel">
-              Upload:
+            Upload:
           </td>
           <td>
             <div class="form-group">
               <!-- <button (click)="importFromTextClicked()" class="btn">Import from file(.txt)</button>
                    -->
               <input name="newsfileuploadbox" type="file" id="fileuploadbox" class="upload" #fileuploadbox (change)="importFromTextClicked($event)"
-              />
-              max size limit = {{maxFileUploadSize}} bytes
+              /> max size limit = {{maxFileUploadSize}} bytes
 
 
 

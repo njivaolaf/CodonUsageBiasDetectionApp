@@ -10,8 +10,11 @@
       "type": "string",
       "required": true
     },
-    "apisource": {
+    "filePath": {
       "type": "string"
+    },
+    "partsCount":{
+      "type":"number"
     },
     "deleted":{
       "type": "boolean",

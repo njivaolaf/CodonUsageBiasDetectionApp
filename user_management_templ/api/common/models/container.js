@@ -75,7 +75,7 @@ module.exports = function (Container) {
             this.acidsResult.push(new aminoAcid('Phe', ['TTT', 'TTC']));
             this.acidsResult.push(new aminoAcid('Gly', ['GGG', 'GGA', 'GGT', 'GGC']));
             this.acidsResult.push(new aminoAcid('His', ['CAT', 'CAC']));
-            this.acidsResult.push(new aminoAcid('Ile', ['ATA', 'ATT']));
+            this.acidsResult.push(new aminoAcid('Ile', ['ATA', 'ATT','ATC']));
             this.acidsResult.push(new aminoAcid('Lys', ['AAG', 'AAA']));
             this.acidsResult.push(new aminoAcid('Leu', ['TTG', 'TTA', 'CTG', 'CTA', 'CTT', 'CTC']));
             this.acidsResult.push(new aminoAcid('Met', ['ATG']));

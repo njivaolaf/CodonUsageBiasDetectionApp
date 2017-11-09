@@ -39,9 +39,14 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
   private viewMode: number = 0; // toggle between 0 or 1 , 0 = initial, 1 = CHART view
 
   private transferLimitPerFile: number = 20000; // in bytes, should match with SERVER
-
+  options = {
+    timeOut: 3000,
+    showProgressBar: false,
+    lastOnBottom: false,
+    animate: 'fromLeft'
+  };
   existingDnaList: Dna[] = [];
-  selectedDnaSeqID: number;
+  selectedDnaSeq: any;
 
   // SETTINGS for CHART
   graphDATA: any[] = [];
@@ -89,7 +94,7 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
 
               this.maxFileUploadSize = 10737418240; // 10GB
           } else
-          this.maxFileUploadSize = 1073741824;
+            this.maxFileUploadSize = 1073741824;
         },
         error => console.log(error)
       );
@@ -105,7 +110,7 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
     loopbackFilter = {
       where: { deleted: false },
     };
-    this.dnaApi.find<Dna>().subscribe(
+    this.dnaApi.find<Dna>(loopbackFilter).subscribe(
       data => {
         this.existingDnaList = data;
         // for (let i in this.existingDnaList) {
@@ -294,7 +299,19 @@ export class CubDetectionComponent implements OnInit, OnDestroy {
   }
 
   calculateBrowseClicked() {
-    console.log('calculateBrowseClicked');
+    var selectedDNA = this.selectedDnaSeq;
+    this.containerApi.getCubResults(selectedDNA.filePath, selectedDNA.partsCount).subscribe(
+      results => {
+        console.log('results:', results);
+        this.xAxisLabel = selectedDNA.sequencename; //change CHART's x label to FILENAME
+
+        this.setupCHART(results);
+      }, err => {
+        if (err && err.message) {
+          console.log(err.message);
+        }
+      },
+    );
   }
   // setting up the DATA containing the calculation results
   // & displaying into stacked vertical bar chart

@@ -1,7 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { NotificationsService } from 'angular2-notifications';
+
+import { Pages } from '../pages.component';
+import { LoopBackAuth } from './../../shared/sdk/services/core/auth.service';
+
 import { TranslateService } from '@ngx-translate/core';
+
+import { Container, ContainerApi } from '../../shared/sdk';
+
+import { environment } from '../../../environments/environment';
+import { Uploader } from 'angular2-http-file-upload';
+import { MyUploadItem } from '../my-upload-item';
+
+import { LoopBackFilter, LoopBackConfig } from '../../shared/sdk';
 
 import { Router, NavigationExtras } from '@angular/router';
 import { DnaApi } from './../../shared/sdk/services';
@@ -12,14 +24,21 @@ import { CustomValidations } from './../../shared/customValidation/customValidat
 @Component({
   selector: 'dna',
   templateUrl: './dna.component.html',
-  styleUrls: ['./dna.component.scss']
+  styleUrls: ['./dna.component.scss'],
+
+  providers: [Pages, Uploader],
 })
 export class DnaComponent implements OnInit {
 
+  dataPerPage: number = 10;
+
+  totalDna: number = 0;
   customValidations: CustomValidations = new CustomValidations();
+
   existingDnaList: Dna[] = [];
   source: LocalDataSource;
   settings: Object;
+
   options = {
     timeOut: 3000,
     showProgressBar: false,
@@ -83,23 +102,85 @@ export class DnaComponent implements OnInit {
               title: this.trans['general.common.sequencename'],
               type: 'string',
             },
+            filePath: {
+              title: '/...',
+              type: 'string',
+            },
           },
         };
-        this.loadData();
+        this.settings = Object.assign({}, this.settings);
+        const observeSource = this.source.onChanged().subscribe(
+          currentObserver => {
+           // console.log('currentObserver:', currentObserver);
+            if (currentObserver.action === 'page') {
+              this.loadData(currentObserver.paging.page);
+            }
+          }, err => {
+            if (err && err.message) {
+              console.log(err.message);
+            }
+          },
+        );
+        this.loadData(1);
       });
   }
+  loadData(pageNum: number): void {   // lastUpdate: pagination (dynamic)
+    const _dataPerPage = this.dataPerPage;
+    const skipNum = (pageNum - 1) * _dataPerPage;
 
-  loadData(): void {
-    this.dnaApi.find<Dna>().subscribe(
-      data => {
-        this.existingDnaList = data;
-        this.source.load(data);
+    this.dnaApi.count({
+      where: {
+        isDeleted: false,
       },
-      err => { if (err && err.message) this.notificationsService.error(err.name, err.message); }
+    } as LoopBackFilter).subscribe(
+      totalDnaData => {
+        this.totalDna = totalDnaData.count;
+
+        // loading the data
+        this.dnaApi.find<Dna>(
+          {
+            order: 'sequencename desc',
+            where: {
+              isDeleted: false,
+            },
+            skip: skipNum,
+            limit: _dataPerPage,
+
+          } as LoopBackFilter).subscribe(
+          data => {
+            const countAfterCurrentData: number = (this.totalDna - skipNum) - data.length;
+            let dataAndEmpty: any[] = [];
+
+            for (let countPush = 0; countPush < skipNum; countPush++) {
+              dataAndEmpty.push('');
+            }
+
+            for (const item of data) {
+              dataAndEmpty.push(item);
+            }
+
+            for (let countPush = 0; countPush < countAfterCurrentData; countPush++) {
+              dataAndEmpty.push('');
+            }
+          //  console.log('dataAndEmpty is:', dataAndEmpty);
+            this.source.load(dataAndEmpty);
+            // console.log('my current page:', this.source.getPaging().page); // to get current page
+          },
+          err => { if (err && err.message) this.notificationsService.error(err.name, err.message); }
+          );
+
+
+
+      }, err => {
+        if (err && err.message) {
+          console.log(err.message);
+        }
+      },
     );
+
   }
+  
   onAddOrEdit(event) {
-    console.log('clicked on add or edit');
     let selectedDnaId: number = 0;
     if (event.data) {
       selectedDnaId = (event.data as Dna).id;
@@ -167,14 +248,14 @@ export class DnaComponent implements OnInit {
   createDna(item: Dna) {
     this.dnaApi.create(item).subscribe(
       () => {
-        this.loadData();
+        this.loadData(1);
         this.notificationsService.success(this.trans['general.common.dna'],
           this.trans['general.common.dna_created']);
       },
       err => {
         if (err && err.message) {
           this.notificationsService.error(err.name, err.message);
-          this.loadData();
+          this.loadData(1);
         }
       }
     );
@@ -185,32 +266,50 @@ export class DnaComponent implements OnInit {
       () => {
         this.notificationsService.success(this.trans['general.common.dna'],
           this.trans['general.common.dna_saved']);
-        this.loadData();
+        this.loadData(1);
       },
       err => {
         if (err && err.message) {
           this.notificationsService.error(err.name, err.message);
-          this.loadData();
+          this.loadData(1);
         }
       }
     );
   }
 
   deleteDna(item: Dna) {
-    this.dnaApi.deleteById(item.id).subscribe(
+    item.deleted = true;
+    this.dnaApi.patchAttributes(item.id, item).subscribe(
       () => {
         this.notificationsService.success(this.trans['general.common.dna'],
           this.trans['general.common.dna_deleted']);
-        this.loadData();
+        this.loadData(1);
       },
       err => {
         if (err && err.message) {
           const name = this.trans['general.common.' + err.name] ? this.trans['general.common.' + err.name] : err.name;
           const message = this.trans['general.common.' + err.message] ? this.trans['general.common.' + err.message] : err.message;
           this.notificationsService.error(name, message);
-          this.loadData();
+          this.loadData(1);
         }
       }
     );
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -6,14 +6,18 @@ import {
 declare var Object: any;
 export interface DnaInterface {
   "sequencename": string;
-  "apisource"?: string;
+  "filePath"?: string;
+  "partsCount"?: number;
+  "deleted"?: boolean;
   "id"?: number;
   sequenceparts?: Sequencepart[];
 }
 
 export class Dna implements DnaInterface {
   "sequencename": string;
-  "apisource": string;
+  "filePath": string;
+  "partsCount": number;
+  "deleted": boolean;
   "id": number;
   sequenceparts: Sequencepart[];
   constructor(data?: DnaInterface) {
@@ -52,9 +56,18 @@ export class Dna implements DnaInterface {
           name: 'sequencename',
           type: 'string'
         },
-        "apisource": {
-          name: 'apisource',
+        "filePath": {
+          name: 'filePath',
           type: 'string'
+        },
+        "partsCount": {
+          name: 'partsCount',
+          type: 'number'
+        },
+        "deleted": {
+          name: 'deleted',
+          type: 'boolean',
+          default: true
         },
         "id": {
           name: 'id',

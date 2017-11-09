@@ -83,26 +83,7 @@ export const GUEST_PAGES_MENU = [
   },
 ];
 export const PAGES_MENU = [
-  {
-    path: 'pages',
-    children: [
 
-      {
-        path: 'dna',
-        data: {
-          menu: {
-            title: 'general.menu.dna',
-            icon: 'ion-stats-bars',
-            selected: false,
-            expanded: false,
-            order: 0,
-          },
-        },
-      },
-
-
-    ],
-  },
   {
     path: 'home',
     data: {
