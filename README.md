@@ -1,2 +1,2 @@
 # cbudetectionproject
-Note: updated soon..
+Note: update soon...
