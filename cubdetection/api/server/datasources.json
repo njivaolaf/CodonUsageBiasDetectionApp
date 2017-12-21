@@ -15,8 +15,8 @@
         "secure": true,
         "port": 465,
         "auth": {
-          "user": "njivaolaf@gmail.com",
-          "pass": "splintercell"
+          "user": "cubdetecttest@gmail.com",
+          "pass": "thisisapass1234"
         },
         "tls": {
           "rejectUnauthorized": false
@@ -31,9 +31,9 @@
   "pgsqlDS": {
     "host": "localhost",
     "port": 5432,
-    "url": "postgres://postgres:thisisapass1234@localhost/usermanagement",
-    "database": "usermanagement",
-    "password": "thisisapass1234",
+    "url": "postgres://postgres:mypassword@localhost/cubdetection",
+    "database": "cubdetection",
+    "password": "mypassword",
     "name": "pgsqlDS",
     "user": "postgres",
     "connector": "postgresql"
